@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShepherdSignals — Every Business Expense, Watched.</title>
+<meta name="description" content="ShepherdSignals monitors every invoice your business receives, detects price creep the moment it happens, and finds you cheaper alternatives. Built for hospitality. Works for any business.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0b0d14;--s2:#12151f;--s3:#1a1e2e;--s4:#222738;
+  --go:#c9a84c;--go2:#e2c06a;--gd:rgba(201,168,76,.1);--gb:rgba(201,168,76,.22);--gg:rgba(201,168,76,.05);
+  --w:#f5f3ee;--mid:#9098b4;--dim:#565d7a;
+  --line:rgba(255,255,255,.07);--lb:rgba(201,168,76,.15);
+  --re:#e05a5a;--rd:rgba(224,90,90,.1);
+  --f:'DM Sans',sans-serif;--m:'DM Mono',monospace;--se:'Playfair Display',serif;
+  --e:cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{background:var(--ink);color:var(--w);font-family:var(--f);font-size:15px;line-height:1.6;overflow-x:hidden}
+
+/* ── NAV ────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(11,13,20,0);backdrop-filter:blur(0);border-bottom:1px solid transparent;transition:all .3s var(--e)}
+nav.scrolled{background:rgba(11,13,20,.95);backdrop-filter:blur(20px);border-bottom-color:var(--line)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.lmark{width:30px;height:30px;background:var(--go);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lname{font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--w)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{font-size:13px;font-weight:500;color:var(--mid);text-decoration:none;transition:color .15s}.nav-links a:hover{color:var(--w)}
+.nav-cta{background:var(--go);color:var(--ink);border:none;padding:8px 18px;border-radius:7px;font-size:13px;font-weight:600;font-family:var(--f);cursor:pointer;transition:all .15s;text-decoration:none;display:inline-flex}
+.nav-cta:hover{background:var(--go2)}
+
+/* ── HERO ───────────────────────────────────────── */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 20px 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(201,168,76,.07),transparent 60%);pointer-events:none}
+.hero-bg2{position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 100%,rgba(107,145,201,.04),transparent 60%);pointer-events:none}
+/* Subtle grid */
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:820px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--m);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--go);background:var(--gd);border:1px solid var(--gb);padding:5px 14px;border-radius:100px;margin-bottom:28px}
+.hero-dot{width:5px;height:5px;background:var(--go);border-radius:50%;animation:bl 2s ease-in-out infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:var(--se);font-size:clamp(42px,7vw,76px);font-weight:700;line-height:1.05;letter-spacing:-.5px;color:var(--w);margin-bottom:24px}
+.hero h1 em{color:var(--go);font-style:italic}
+.hero h1 span{display:block}
+.hero-sub{font-size:clamp(16px,2vw,19px);color:var(--mid);line-height:1.65;max-width:580px;margin:0 auto 40px;font-weight:400}
+.hero-sub strong{color:var(--w);font-weight:500}
+.hero-ctas{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:64px}
+.btn-p{background:var(--go);color:var(--ink);border:none;padding:14px 28px;border-radius:9px;font-size:15px;font-weight:600;font-family:var(--f);cursor:pointer;transition:all .18s var(--e);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-p:hover{background:var(--go2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.3)}
+.btn-s{background:transparent;color:var(--mid);border:1px solid var(--line);padding:14px 24px;border-radius:9px;font-size:15px;font-weight:500;font-family:var(--f);cursor:pointer;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-s:hover{border-color:var(--lb);color:var(--w)}
+/* Stats row */
+.hero-stats{display:flex;align-items:stretch;justify-content:center;gap:0;background:var(--s2);border:1px solid var(--line);border-radius:14px;overflow:hidden;max-width:640px;margin:0 auto}
+.hstat{flex:1;padding:20px 24px;text-align:center;border-right:1px solid var(--line);position:relative}
+.hstat:last-child{border-right:none}
+.hstat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--go);opacity:.4}
+.hstat-n{font-family:var(--se);font-size:34px;font-weight:700;color:var(--go);letter-spacing:-1px;line-height:1;margin-bottom:5px}
+.hstat-l{font-size:12px;color:var(--mid);line-height:1.4}
+
+/* ── SECTION SHARED ─────────────────────────────── */
+section{padding:100px 20px}
+.wrap{max-width:1000px;margin:0 auto}
+.sec-eyebrow{font-family:var(--m);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--go);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sec-eyebrow::before{content:'';width:20px;height:1.5px;background:var(--go);display:block}
+.sec-h{font-family:var(--se);font-size:clamp(30px,4vw,44px);font-weight:700;color:var(--w);line-height:1.15;letter-spacing:-.3px;margin-bottom:14px}
+.sec-h em{color:var(--go);font-style:italic}
+.sec-p{font-size:16px;color:var(--mid);line-height:1.7;max-width:560px}
+
+/* ── PROBLEM ────────────────────────────────────── */
+.problem{background:var(--ink)}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:52px}
+.prob{background:var(--s2);border:1px solid var(--line);border-radius:14px;padding:24px;position:relative;overflow:hidden}
+.prob::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.prob-a::before{background:var(--re)}.prob-b::before{background:var(--am)}.prob-c::before{background:var(--go)}.prob-d::before{background:var(--bl)}
+.prob-icon{font-size:24px;margin-bottom:12px}
+.prob-title{font-size:15px;font-weight:600;color:var(--w);margin-bottom:6px}
+.prob-desc{font-size:13px;color:var(--mid);line-height:1.6}
+.prob-num{font-family:var(--se);font-size:28px;font-weight:700;color:var(--re);margin-top:10px;letter-spacing:-.5px}
+.prob-num.gold{color:var(--go)}.prob-num.am{color:var(--am)}
+
+/* ── HOW IT WORKS ───────────────────────────────── */
+.hiw{background:var(--s2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.hiw-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:56px;position:relative}
+.hiw-steps::before{content:'';position:absolute;top:28px;left:calc(16.67% + 20px);right:calc(16.67% + 20px);height:1px;background:linear-gradient(90deg,var(--go),rgba(201,168,76,.2));z-index:0}
+.hiw-step{padding:0 20px;text-align:left;position:relative;z-index:1}
+.hiw-num{width:56px;height:56px;background:var(--s3);border:1px solid var(--gb);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;position:relative}
+.hiw-num::after{content:'';position:absolute;inset:-1px;background:linear-gradient(135deg,rgba(201,168,76,.3),transparent);border-radius:14px;z-index:-1}
+.hiw-num-text{font-family:var(--se);font-size:22px;font-weight:700;color:var(--go)}
+.hiw-title{font-size:17px;font-weight:600;color:var(--w);margin-bottom:8px;letter-spacing:-.2px}
+.hiw-desc{font-size:13px;color:var(--mid);line-height:1.65}
+.hiw-tag{display:inline-flex;font-family:var(--m);font-size:10px;font-weight:500;letter-spacing:.5px;color:var(--go);background:var(--gd);border:1px solid var(--gb);padding:3px 9px;border-radius:100px;margin-top:10px}
+
+/* ── WHAT YOU GET ───────────────────────────────── */
+.wyg{background:var(--ink)}
+.wyg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:52px}
+.wyg-card{background:var(--s2);border:1px solid var(--line);border-radius:14px;padding:22px;transition:all .2s var(--e)}
+.wyg-card:hover{border-color:var(--lb);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.wyg-icon{width:40px;height:40px;background:var(--gd);border:1px solid var(--gb);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px}
+.wyg-title{font-size:15px;font-weight:600;color:var(--w);margin-bottom:6px;letter-spacing:-.1px}
+.wyg-desc{font-size:13px;color:var(--mid);line-height:1.6}
+
+/* ── CATEGORIES ─────────────────────────────────── */
+.cats{background:var(--s2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:48px}
+.cat{background:var(--s3);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;align-items:flex-start;gap:14px;transition:all .2s var(--e)}
+.cat:hover{border-color:var(--lb)}
+.cat-ico{font-size:22px;flex-shrink:0;margin-top:2px}
+.cat-title{font-size:14px;font-weight:600;color:var(--w);margin-bottom:3px}
+.cat-desc{font-size:12px;color:var(--dim);line-height:1.5}
+.cat-ex{font-size:11px;color:var(--go);font-family:var(--m);margin-top:5px}
+
+/* ── WHO IT'S FOR ───────────────────────────────── */
+.who{background:var(--ink)}
+.who-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:48px}
+.who-card{background:var(--s2);border:1px solid var(--line);border-radius:12px;padding:18px;text-align:center;transition:all .2s var(--e)}
+.who-card:hover{border-color:var(--lb)}
+.who-ico{font-size:28px;margin-bottom:10px}
+.who-name{font-size:14px;font-weight:600;color:var(--w);margin-bottom:4px}
+.who-desc{font-size:12px;color:var(--dim);line-height:1.5}
+
+/* ── ALERT PREVIEW ──────────────────────────────── */
+.preview{background:var(--s2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.preview-inner{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;margin-top:56px}
+.preview-copy .sec-p{margin-bottom:24px}
+.preview-points{display:flex;flex-direction:column;gap:12px}
+.ppoint{display:flex;align-items:flex-start;gap:12px}
+.ppoint-check{width:20px;height:20px;background:var(--gd);border:1px solid var(--gb);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--go);flex-shrink:0;margin-top:2px}
+.ppoint-text{font-size:14px;color:var(--mid);line-height:1.55}.ppoint-text strong{color:var(--w);font-weight:500}
+/* Email mockup */
+.email-mock{background:var(--s3);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.em-bar{background:var(--s4);padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
+.em-dots{display:flex;gap:5px}.em-dot{width:10px;height:10px;border-radius:50%}
+.em-body{padding:20px}
+.em-from{font-size:11px;color:var(--dim);font-family:var(--m);margin-bottom:4px}
+.em-subject{font-size:14px;font-weight:600;color:var(--w);margin-bottom:14px;line-height:1.4}
+.em-alert{background:var(--rd);border:1px solid rgba(224,90,90,.2);border-radius:8px;padding:12px;margin-bottom:12px}
+.em-alert-lbl{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--re);margin-bottom:4px;font-family:var(--m)}
+.em-alert-title{font-size:13px;font-weight:600;color:var(--w)}
+.em-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px}
+.em-row:last-child{border-bottom:none}
+.em-label{color:var(--dim);font-family:var(--m)}
+.em-val{color:var(--w);font-weight:500}
+.em-val.red{color:var(--re)}.em-val.gold{color:var(--go)}
+.em-action{background:var(--gd);border:1px solid var(--gb);border-radius:7px;padding:10px 12px;margin-top:12px}
+.em-action-lbl{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--go);margin-bottom:4px;font-family:var(--m)}
+.em-action-text{font-size:12px;color:var(--mid);line-height:1.55}
+
+/* ── TIMELINE ───────────────────────────────────── */
+.timeline{background:var(--ink)}
+.tl-items{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:52px;position:relative}
+.tl-items::before{content:'';position:absolute;top:22px;left:22px;right:22px;height:1px;background:linear-gradient(90deg,var(--go),rgba(201,168,76,.1));z-index:0}
+.tl-item{padding:0 16px;position:relative;z-index:1}
+.tl-dot{width:44px;height:44px;background:var(--s2);border:1px solid var(--gb);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.tl-dot-inner{width:12px;height:12px;background:var(--go);border-radius:50%}
+.tl-day{font-family:var(--m);font-size:10px;letter-spacing:1.5px;color:var(--go);margin-bottom:5px;font-weight:500}
+.tl-title{font-size:14px;font-weight:600;color:var(--w);margin-bottom:5px}
+.tl-desc{font-size:12px;color:var(--dim);line-height:1.5}
+
+/* ── CTA ────────────────────────────────────────── */
+.cta-section{background:var(--s2);border-top:1px solid var(--line)}
+.cta-inner{text-align:center;padding:80px 20px;max-width:640px;margin:0 auto}
+.cta-inner .sec-h{margin-bottom:16px}
+.cta-inner .sec-p{margin:0 auto 36px}
+.cta-form{display:flex;gap:8px;max-width:420px;margin:0 auto 16px;flex-wrap:wrap;justify-content:center}
+.cta-input{flex:1;min-width:200px;background:var(--s3);border:1px solid var(--line);border-radius:8px;padding:12px 16px;color:var(--w);font-family:var(--f);font-size:14px;outline:none;transition:border-color .15s}.cta-input:focus{border-color:var(--gb)}.cta-input::placeholder{color:var(--dim)}
+.cta-note{font-size:12px;color:var(--dim);font-family:var(--m)}
+
+/* ── FOOTER ─────────────────────────────────────── */
+footer{background:var(--ink);border-top:1px solid var(--line);padding:40px 20px}
+.footer-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:13px;color:var(--dim);text-decoration:none;transition:color .15s}.footer-links a:hover{color:var(--go)}
+.footer-copy{font-size:12px;color:var(--dim);font-family:var(--m)}
+
+/* ── ANIMATIONS ─────────────────────────────────── */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .7s var(--e),transform .7s var(--e)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .problem-grid,.wyg-grid,.cats-grid,.who-grid,.hiw-steps,.tl-items{grid-template-columns:1fr}
+  .hiw-steps::before,.tl-items::before{display:none}
+  .preview-inner{grid-template-columns:1fr}
+  .hero-stats{flex-direction:column}
+  .hstat{border-right:none;border-bottom:1px solid var(--line)}.hstat:last-child{border-bottom:none}
+  section{padding:60px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="logo" href="/">
+    <div class="lmark">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M2 12L5.5 6L8.5 10.5L12 3.5" stroke="#0b0d14" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="14" cy="3.5" r="1.4" fill="#0b0d14"/>
+      </svg>
+    </div>
+    <span class="lname">ShepherdSignals</span>
+  </a>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#what">What you get</a>
+    <a href="#who">Who it's for</a>
+    <a href="#contact">Contact</a>
+    <a class="nav-cta" href="/audit">Run Free Audit</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg2"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><div class="hero-dot"></div>Expense Intelligence for Business</div>
+    <h1>
+      <span>Every invoice watched.</span>
+      <em>Every overcharge caught.</em>
+    </h1>
+    <p class="hero-sub">ShepherdSignals monitors every bill your business receives, detects price creep the moment it happens, and finds you <strong>named cheaper alternatives</strong> — automatically, across every expense category.</p>
+    <div class="hero-ctas">
+      <a class="btn-p" href="/audit">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 10L5 5L7.5 8.5L10.5 3" stroke="#0b0d14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="3" r="1.2" fill="#0b0d14"/></svg>
+        Run a Free Audit
+      </a>
+      <a class="btn-s" href="#how">See how it works &darr;</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-n">3.4%</div>
+        <div class="hstat-l">Average revenue recovered in the first period</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n">19d</div>
+        <div class="hstat-l">Earlier price creep is caught vs monthly P&amp;L review</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n">27&times;</div>
+        <div class="hstat-l">Average ROI — for every dollar in, twenty-seven come back</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem fade-up" id="problem">
+  <div class="wrap">
+    <div class="sec-eyebrow">The Problem</div>
+    <h2 class="sec-h">Your costs are creeping up.<br><em>Nobody is watching.</em></h2>
+    <p class="sec-p">Every supplier knows that busy business owners don't scrutinise invoices line by line. They raise prices slowly, quietly, and rely on inertia to keep you paying.</p>
+    <div class="problem-grid">
+      <div class="prob prob-a">
+        <div class="prob-icon">📈</div>
+        <div class="prob-title">Supplier prices rise silently</div>
+        <div class="prob-desc">Sysco, GFS, your linen service, your pest control company — they all raise prices gradually. By the time it shows on your P&L, you've overpaid for months.</div>
+        <div class="prob-num">+14%</div>
+        <div style="font-size:12px;color:var(--dim);margin-top:2px">average annual price creep across common suppliers</div>
+      </div>
+      <div class="prob prob-b">
+        <div class="prob-icon">🔄</div>
+        <div class="prob-title">Contracts auto-renew without review</div>
+        <div class="prob-desc">Linen services, waste removal, pest control — most contracts have automatic renewal clauses with built-in price increases. They're designed to be ignored.</div>
+        <div class="prob-num am">73%</div>
+        <div style="font-size:12px;color:var(--dim);margin-top:2px">of businesses haven't renegotiated a vendor contract in over 2 years</div>
+      </div>
+      <div class="prob prob-c">
+        <div class="prob-icon">💸</div>
+        <div class="prob-title">You're paying loyalty tax</div>
+        <div class="prob-desc">Long-term suppliers charge more to loyal customers than to new ones. Your 5-year relationship with your Sysco rep is costing you money, not saving it.</div>
+        <div class="prob-num gold">8–15%</div>
+        <div style="font-size:12px;color:var(--dim);margin-top:2px">typical gap between your price and a competitor's quote for identical items</div>
+      </div>
+      <div class="prob prob-d">
+        <div class="prob-icon">⏰</div>
+        <div class="prob-title">You find out too late</div>
+        <div class="prob-desc">Monthly P&L reviews catch cost increases weeks after they've already compounded. By month end, you've served thousands of covers at the wrong margin.</div>
+        <div class="prob-num" style="color:var(--bl)">19 days</div>
+        <div style="font-size:12px;color:var(--dim);margin-top:2px">average delay between a price increase and a business owner noticing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="hiw fade-up" id="how">
+  <div class="wrap">
+    <div class="sec-eyebrow">How It Works</div>
+    <h2 class="sec-h">Set up in 20 minutes.<br><em>Then it runs itself.</em></h2>
+    <p class="sec-p">No software to install. No dashboards to check. Everything happens in your email inbox.</p>
+    <div class="hiw-steps">
+      <div class="hiw-step">
+        <div class="hiw-num"><span class="hiw-num-text">1</span></div>
+        <div class="hiw-title">Forward your invoices</div>
+        <div class="hiw-desc">Set up a forwarding rule so every invoice your business receives goes to your ShepherdSignals inbox. One rule. Takes 2 minutes. Works with any email provider.</div>
+        <div class="hiw-tag">20-minute setup</div>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-num"><span class="hiw-num-text">2</span></div>
+        <div class="hiw-title">We read every invoice</div>
+        <div class="hiw-desc">ShepherdSignals reads every invoice the moment it arrives — food, linen, utilities, maintenance, anything. We compare every line item against your history and against market rates.</div>
+        <div class="hiw-tag">Continuous monitoring</div>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-num"><span class="hiw-num-text">3</span></div>
+        <div class="hiw-title">You get the alert</div>
+        <div class="hiw-desc">Within 24 hours of any price increase: which item, which vendor, exactly how much you're overpaying, and which competitors are cheaper — with their contact information.</div>
+        <div class="hiw-tag">24-hour alerts</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="wyg fade-up" id="what">
+  <div class="wrap">
+    <div class="sec-eyebrow">What You Get</div>
+    <h2 class="sec-h">Not just alerts.<br><em>The full intelligence layer.</em></h2>
+    <p class="sec-p">Every ShepherdSignals client receives the same complete service — ongoing monitoring, weekly digests, monthly reports, and a human team watching your numbers.</p>
+    <div class="wyg-grid">
+      <div class="wyg-card">
+        <div class="wyg-icon">⚡</div>
+        <div class="wyg-title">24-Hour Price Creep Alerts</div>
+        <div class="wyg-desc">The moment any supplier raises a price, you get an email. Not next month. Not next week. Within 24 hours, with the exact item, vendor, and dollar impact.</div>
+      </div>
+      <div class="wyg-card">
+        <div class="wyg-icon">📊</div>
+        <div class="wyg-title">Competitive Benchmarking</div>
+        <div class="wyg-desc">Every alert includes what your competitors are paying for the same item — with named alternatives and their contact information so you can act immediately.</div>
+      </div>
+      <div class="wyg-card">
+        <div class="wyg-icon">🗓</div>
+        <div class="wyg-title">Weekly Digest</div>
+        <div class="wyg-desc">Every Monday morning: a summary of the week's cost movements, items on target, items flagged, and the three highest-priority actions for the week ahead.</div>
+      </div>
+      <div class="wyg-card">
+        <div class="wyg-icon">📋</div>
+        <div class="wyg-title">Monthly Full Audit</div>
+        <div class="wyg-desc">A complete expense audit every month — total spend per category, all price creep events, competitive gaps identified, and a prioritised savings action plan.</div>
+      </div>
+      <div class="wyg-card">
+        <div class="wyg-icon">🤝</div>
+        <div class="wyg-title">Smart Switch Recommendations</div>
+        <div class="wyg-desc">When you're overpaying, we don't just tell you — we find 2-3 specific alternative vendors in your area with estimated savings and how to contact them.</div>
+      </div>
+      <div class="wyg-card">
+        <div class="wyg-icon">🎯</div>
+        <div class="wyg-title">Priority Action List</div>
+        <div class="wyg-desc">Every report ends with a ranked list of actions — sorted by annual saving potential, with effort level and specific next steps so you always know what to do first.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="cats fade-up">
+  <div class="wrap">
+    <div class="sec-eyebrow">What We Monitor</div>
+    <h2 class="sec-h">Every expense category.<br><em>One inbox.</em></h2>
+    <p class="sec-p">Forward every invoice you receive — regardless of vendor, category, or format. ShepherdSignals reads it all.</p>
+    <div class="cats-grid">
+      <div class="cat"><div class="cat-ico">🍽</div><div><div class="cat-title">Food &amp; Beverage</div><div class="cat-desc">Every ingredient, every supplier, every invoice. Benchmarked against GFS, Restaurant Depot, and local alternatives.</div><div class="cat-ex">Sysco · GFS · Restaurant Depot · Local</div></div></div>
+      <div class="cat"><div class="cat-ico">👥</div><div><div class="cat-title">Labour &amp; Staffing</div><div class="cat-desc">Payroll cost trends, overtime patterns, scheduling efficiency. Flagged when labour cost % drifts above your target.</div><div class="cat-ex">7shifts · Deputy · ADP exports</div></div></div>
+      <div class="cat"><div class="cat-ico">⚡</div><div><div class="cat-title">Utilities</div><div class="cat-desc">Electricity, gas, water, internet. Consumption per customer tracked and benchmarked against industry averages.</div><div class="cat-ex">BC Hydro · FortisBC · Shaw · Telus</div></div></div>
+      <div class="cat"><div class="cat-ico">🚚</div><div><div class="cat-title">Vendors &amp; Services</div><div class="cat-desc">Linen, pest control, cleaning, CO2, waste removal, uniforms. The most price-crept category in hospitality.</div><div class="cat-ex">Alsco · Cintas · Rentokil · GFL</div></div></div>
+      <div class="cat"><div class="cat-ico">🔧</div><div><div class="cat-title">Maintenance &amp; Repairs</div><div class="cat-desc">Equipment repair costs tracked cumulatively. Flagged when repair spend approaches replacement value.</div><div class="cat-ex">All equipment vendors and service companies</div></div></div>
+      <div class="cat"><div class="cat-ico">📋</div><div><div class="cat-title">Everything Else</div><div class="cat-desc">Insurance, subscriptions, marketing, merchant processing, rent, office supplies. If it's an invoice, we read it.</div><div class="cat-ex">Moneris · Square · insurance renewals</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="who fade-up" id="who">
+  <div class="wrap">
+    <div class="sec-eyebrow">Who It's For</div>
+    <h2 class="sec-h">Built for hospitality.<br><em>Works for any business.</em></h2>
+    <p class="sec-p">Any business that receives recurring invoices from multiple vendors is leaving money on the table. ShepherdSignals gives it back.</p>
+    <div class="who-grid">
+      <div class="who-card"><div class="who-ico">⛳</div><div class="who-name">Golf Clubs</div><div class="who-desc">Seasonal operations with complex food, linen, and maintenance costs across multiple vendors</div></div>
+      <div class="who-card"><div class="who-ico">🍽</div><div class="who-name">Restaurants</div><div class="who-desc">High invoice volume, tight margins, and supplier relationships built on loyalty rather than price</div></div>
+      <div class="who-card"><div class="who-ico">🏨</div><div class="who-name">Hotels &amp; Resorts</div><div class="who-desc">Multiple departments, dozens of vendors, and contract renewals happening at different times of year</div></div>
+      <div class="who-card"><div class="who-ico">☕</div><div class="who-name">Cafes &amp; Bakeries</div><div class="who-desc">Commodity-driven costs — dairy, flour, coffee — that move constantly and hit margins hard</div></div>
+      <div class="who-card"><div class="who-ico">🏋</div><div class="who-name">Fitness &amp; Wellness</div><div class="who-desc">Equipment maintenance, cleaning, and staffing costs that creep quietly under the radar</div></div>
+      <div class="who-card"><div class="who-ico">🏥</div><div class="who-name">Healthcare</div><div class="who-desc">Medical supplies, cleaning, and maintenance contracts that rarely get competitive quotes</div></div>
+      <div class="who-card"><div class="who-ico">🏪</div><div class="who-name">Retail</div><div class="who-desc">Product procurement, utilities, and vendor service contracts across multiple categories</div></div>
+      <div class="who-card"><div class="who-ico">🏢</div><div class="who-name">Any Business</div><div class="who-desc">If you receive invoices and pay bills, ShepherdSignals finds where you're overpaying</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ALERT PREVIEW -->
+<section class="preview fade-up">
+  <div class="wrap">
+    <div class="preview-inner">
+      <div class="preview-copy">
+        <div class="sec-eyebrow">What It Looks Like</div>
+        <h2 class="sec-h">An alert lands.<br><em>You act.</em></h2>
+        <p class="sec-p">Every alert is written in plain English, references your actual invoice, and tells you exactly what to do — including who to call and what to say.</p>
+        <div class="preview-points">
+          <div class="ppoint"><div class="ppoint-check">✓</div><div class="ppoint-text"><strong>Specific vendor and item</strong> — not a vague summary, the exact line on your invoice</div></div>
+          <div class="ppoint"><div class="ppoint-check">✓</div><div class="ppoint-text"><strong>Annual dollar impact</strong> — how much this increase costs you over 12 months at current volume</div></div>
+          <div class="ppoint"><div class="ppoint-check">✓</div><div class="ppoint-text"><strong>Named alternatives</strong> — 2-3 specific companies in your area, with estimated savings</div></div>
+          <div class="ppoint"><div class="ppoint-check">✓</div><div class="ppoint-text"><strong>Action you can take today</strong> — a phone number, a website, a specific ask</div></div>
+        </div>
+      </div>
+      <div class="email-mock">
+        <div class="em-bar">
+          <div class="em-dots">
+            <div class="em-dot" style="background:#e05a5a"></div>
+            <div class="em-dot" style="background:#d4944a"></div>
+            <div class="em-dot" style="background:#5aac8e"></div>
+          </div>
+        </div>
+        <div class="em-body">
+          <div class="em-from">from: alerts@shepherdsignals.com</div>
+          <div class="em-subject">⚠ Price Alert — Romaine Lettuce up 22% · Sysco Kelowna</div>
+          <div class="em-alert">
+            <div class="em-alert-lbl">Price Creep Detected</div>
+            <div class="em-alert-title">Romaine Lettuce increased from $1.85 to $2.26 per head</div>
+          </div>
+          <div class="em-row"><span class="em-label">Previous price</span><span class="em-val">$1.85 / head</span></div>
+          <div class="em-row"><span class="em-label">New price</span><span class="em-val red">$2.26 / head</span></div>
+          <div class="em-row"><span class="em-label">Increase</span><span class="em-val red">+22.2%</span></div>
+          <div class="em-row"><span class="em-label">Annual impact at current volume</span><span class="em-val red">−$3,840 / yr</span></div>
+          <div class="em-action">
+            <div class="em-action-lbl">Recommended Action</div>
+            <div class="em-action-text">Gordon Food Service is currently quoting Romaine at <span style="color:var(--go);font-weight:600">$1.74/head</span> — saving you an estimated <span style="color:var(--go);font-weight:600">$4,200/yr</span>. Call your local GFS rep at <span style="color:var(--go)">1-800-968-5686</span> for a quote before your next Sysco order.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline fade-up">
+  <div class="wrap">
+    <div class="sec-eyebrow">Onboarding</div>
+    <h2 class="sec-h">Your system, built<br><em>in 10 days.</em></h2>
+    <p class="sec-p">From handshake to fully automated — we handle the setup so you don't have to think about it.</p>
+    <div class="tl-items">
+      <div class="tl-item">
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-day">Day 1</div>
+        <div class="tl-title">Onboarding audit</div>
+        <div class="tl-desc">We run a full backtest on your existing invoices. Your first report lands in your inbox before we even start the setup.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-day">Day 3</div>
+        <div class="tl-title">Forwarding live</div>
+        <div class="tl-desc">Invoice forwarding is configured. Every new invoice is being read automatically the moment it arrives.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-day">Day 5</div>
+        <div class="tl-title">First live alert</div>
+        <div class="tl-desc">Your monitoring is live. The first real price change triggers your first automated alert — exactly as it will every week from here.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"><div class="tl-dot-inner" style="background:var(--go2)"></div></div>
+        <div class="tl-day">Day 10</div>
+        <div class="tl-title">Full system running</div>
+        <div class="tl-desc">Weekly digests, monthly reports, competitive benchmarking — your complete expense intelligence funnel is live and automated.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section fade-up" id="contact">
+  <div class="cta-inner">
+    <div class="sec-eyebrow" style="justify-content:center">Get Started</div>
+    <h2 class="sec-h">See what you're<br><em>overpaying today.</em></h2>
+    <p class="sec-p">Upload your invoices and get a free expense audit in minutes. No account required. Your data is never stored.</p>
+    <div class="hero-ctas" style="margin-bottom:20px">
+      <a class="btn-p" href="/audit">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 10L5 5L7.5 8.5L10.5 3" stroke="#0b0d14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="3" r="1.2" fill="#0b0d14"/></svg>
+        Run a Free Audit
+      </a>
+    </div>
+    <div style="margin-bottom:28px;padding:16px;background:var(--s3);border:1px solid var(--line);border-radius:10px;max-width:380px;margin-left:auto;margin-right:auto">
+      <div style="font-size:12px;color:var(--dim);text-align:center;line-height:1.7">Or email us directly<br><a href="mailto:shepherdsargent@shepherdsignals.com" style="color:var(--go);text-decoration:none;font-family:var(--m);font-size:13px">shepherdsargent@shepherdsignals.com</a></div>
+    </div>
+    <div class="cta-note">No credit card. No commitment. Just your invoices and 5 minutes.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="logo">
+      <div class="lmark">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M1.5 10.5L5 5L7.5 9L11 3" stroke="#0b0d14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12.5" cy="3" r="1.2" fill="#0b0d14"/>
+        </svg>
+      </div>
+      <span class="lname">ShepherdSignals</span>
+    </div>
+    <div class="footer-links">
+      <a href="/audit">Free Audit</a>
+      <a href="mailto:shepherdsargent@shepherdsignals.com">shepherdsargent@shepherdsignals.com</a>
+      <a href="mailto:sales@shepherdsignals.com">sales@shepherdsignals.com</a>
+    </div>
+    <div class="footer-copy">Kelowna, BC &nbsp;&middot;&nbsp; shepherdsignals.com</div>
+  </div>
+</footer>
+
+<script>
+// Scroll nav
+window.addEventListener('scroll', function(){
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Fade up on scroll
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(function(el){ obs.observe(el); });
+
+// Smooth anchor scroll
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var target = document.querySelector(this.getAttribute('href'));
+    if(target){ e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+</body>
+</html>
