@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/portal", "dest": "/portal.html" },
+    { "src": "/audit", "dest": "/audit-portal.html" },
+    { "src": "/sample-audit", "dest": "/email-funnel.html" },
+    { "src": "/automation", "dest": "/automation-guide.html" }
+  ]
+}

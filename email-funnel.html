@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShepherdSignals — Email Funnel (6-Email Sequence)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green-800:#0A3D2E;--green-700:#0D5240;--green-500:#157A60;
+  --gold-600:#B8791A;--gold-500:#D4942A;
+  --gray-900:#1C1C1A;--gray-700:#3A3A38;--gray-500:#6B6B65;
+  --gray-300:#B8B8B2;--gray-100:#EEEEE8;--gray-50:#F7F7F3;
+  --white:#FFFFFF;--bg:#FAFAF7;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--gray-900);padding:0;margin:0;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500;letter-spacing:-.03em}
+
+/* SIDEBAR NAV */
+.layout{display:flex;min-height:100vh}
+.sidebar{width:280px;background:var(--green-800);color:#fff;flex-shrink:0;padding:32px 24px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sidebar-logo{display:flex;align-items:center;gap:9px;margin-bottom:36px}
+.sidebar-logo-mark{width:30px;height:30px;background:rgba(255,255,255,.12);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.sidebar-logo-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:500;color:#fff;letter-spacing:-.02em}
+.sidebar-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px;margin-top:24px}
+.sidebar-label:first-of-type{margin-top:0}
+.email-nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;cursor:pointer;margin-bottom:3px;transition:background .15s;text-decoration:none}
+.email-nav-item:hover{background:rgba(255,255,255,.08)}
+.email-nav-item.active{background:rgba(255,255,255,.12)}
+.eni-num{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.12);font-family:'DM Mono',monospace;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);flex-shrink:0}
+.email-nav-item.active .eni-num{background:var(--gold-500);color:#fff}
+.eni-title{font-size:12px;font-weight:500;color:rgba(255,255,255,.7);line-height:1.3}
+.email-nav-item.active .eni-title{color:#fff}
+.eni-day{font-size:10px;color:rgba(255,255,255,.35);margin-top:1px;font-family:'DM Mono',monospace}
+
+.sidebar-info{margin-top:32px;padding:14px;background:rgba(255,255,255,.06);border-radius:10px;font-size:11px;color:rgba(255,255,255,.45);line-height:1.6}
+.sidebar-info strong{color:rgba(255,255,255,.7)}
+
+/* MAIN CONTENT */
+.main{flex:1;overflow-y:auto}
+.top-bar{background:var(--white);border-bottom:1px solid var(--gray-100);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.top-bar-title{font-size:13px;font-weight:600;color:var(--gray-900)}
+.top-bar-sub{font-size:12px;color:var(--gray-500);margin-top:1px}
+.badge{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:100px;font-family:'DM Mono',monospace}
+.badge-green{background:rgba(21,122,96,.1);color:var(--green-500);border:1px solid rgba(21,122,96,.2)}
+.badge-gold{background:rgba(212,148,42,.1);color:var(--gold-600);border:1px solid rgba(212,148,42,.2)}
+.badge-gray{background:var(--gray-50);color:var(--gray-500);border:1px solid var(--gray-100)}
+
+/* EMAIL PANELS */
+.email-section{display:none;padding:40px}
+.email-section.active{display:block}
+
+/* META STRIP */
+.email-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:28px;padding:14px 18px;background:var(--white);border:1px solid var(--gray-100);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.em-item{display:flex;flex-direction:column;gap:2px}
+.em-label{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-300);font-family:'DM Mono',monospace}
+.em-val{font-size:13px;font-weight:500;color:var(--gray-900)}
+.em-div{width:1px;height:32px;background:var(--gray-100)}
+
+/* EMAIL PREVIEW */
+.email-preview{background:var(--white);border:1px solid var(--gray-100);border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.07);margin-bottom:24px}
+.ep-chrome{background:var(--gray-50);border-bottom:1px solid var(--gray-100);padding:10px 16px;display:flex;align-items:center;gap:8px}
+.ep-dot{width:10px;height:10px;border-radius:50%}
+.ep-header{background:var(--white);border-bottom:1px solid var(--gray-100);padding:18px 24px}
+
+/* EMAIL IMAGE HEADER */
+.ep-img-header{position:relative;height:220px;overflow:hidden}
+.ep-img-header img{width:100%;height:100%;object-fit:cover;object-position:center}
+.ep-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,43,34,.3) 0%,rgba(6,43,34,.72) 100%)}
+.ep-img-text{position:absolute;bottom:0;left:0;right:0;padding:24px 28px}
+.ep-img-logo{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.ep-img-logo-mark{width:28px;height:28px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.ep-img-logo-name{font-family:'Playfair Display',serif;font-size:13px;font-weight:500;color:#fff;letter-spacing:-.01em}
+.ep-img-headline{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:#fff;line-height:1.2;letter-spacing:-.02em;text-shadow:0 1px 8px rgba(0,0,0,.3)}
+.ep-img-sub{font-size:12px;color:rgba(255,255,255,.6);margin-top:5px;font-family:'DM Mono',monospace;letter-spacing:.03em}
+.ep-from{font-size:12px;font-weight:600;color:var(--gray-900);margin-bottom:3px}
+.ep-from-addr{font-size:11px;color:var(--gray-500);font-family:'DM Mono',monospace}
+.ep-subject{font-size:15px;font-weight:500;color:var(--gray-900);margin-top:10px;font-family:'Playfair Display',serif}
+.ep-body{padding:28px 28px 32px;font-size:14px;line-height:1.85;color:var(--gray-700);white-space:pre-wrap;font-family:'Inter',sans-serif}
+.ep-sig{margin-top:20px;padding-top:20px;border-top:1px solid var(--gray-100);font-size:13px;color:var(--gray-700)}
+.ep-sig-name{font-weight:600;color:var(--gray-900)}
+.ep-sig-title{color:var(--gray-500);margin-top:2px}
+.ep-sig-logo{margin-top:10px;display:flex;align-items:center;gap:8px}
+.ep-sig-mark{width:22px;height:22px;background:var(--green-800);border-radius:5px;display:flex;align-items:center;justify-content:center}
+.ep-sig-brand{font-family:'Playfair Display',serif;font-size:13px;font-weight:500;color:var(--gray-900)}
+
+/* NOTES */
+.notes-section{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.note-card{background:var(--white);border:1px solid var(--gray-100);border-radius:12px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.note-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-300);margin-bottom:10px;display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace}
+.note-label::before{content:'';display:block;width:3px;height:9px;border-radius:2px}
+.note-label.nl-strategy::before{background:var(--green-500)}
+.note-label.nl-hook::before{background:var(--gold-500)}
+.note-label.nl-cta::before{background:#5B4F8A}
+.note-label.nl-timing::before{background:#B83A2A}
+.note-content{font-size:13px;color:var(--gray-700);line-height:1.65}
+
+/* SEQUENCE MAP */
+.sequence-map{background:var(--white);border:1px solid var(--gray-100);border-radius:14px;padding:24px;margin-bottom:32px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.sm-title{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-300);margin-bottom:16px;font-family:'DM Mono',monospace}
+.sm-steps{display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding-bottom:4px}
+.sm-step{flex:1;min-width:120px;position:relative}
+.sm-step:not(:last-child)::after{content:'→';position:absolute;right:-12px;top:14px;font-size:16px;color:var(--gray-300)}
+.sms-box{padding:10px 12px;border-radius:9px;border:1px solid var(--gray-100);background:var(--gray-50);cursor:pointer;transition:all .2s;margin-right:24px}
+.sms-box.active{background:var(--green-800);border-color:var(--green-800)}
+.sms-day{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-300);margin-bottom:4px;font-family:'DM Mono',monospace}
+.sms-box.active .sms-day{color:rgba(255,255,255,.5)}
+.sms-name{font-size:12px;font-weight:600;color:var(--gray-700);line-height:1.3}
+.sms-box.active .sms-name{color:#fff}
+.sms-type{font-size:10px;color:var(--gray-300);margin-top:2px}
+.sms-box.active .sms-type{color:rgba(255,255,255,.4)}
+
+@media(max-width:900px){
+  .sidebar{display:none}
+  .email-section{padding:24px}
+  .notes-section{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-mark">
+      <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="4" r="1.6" fill="#D4942A"/></svg>
+    </div>
+    <span class="sidebar-logo-name">ShepherdSignals</span>
+  </div>
+
+  <div class="sidebar-label">Email Sequence</div>
+  <a class="email-nav-item active" onclick="showEmail(1)" href="#">
+    <div class="eni-num">1</div>
+    <div><div class="eni-title">The Cold Open</div><div class="eni-day">Day 1</div></div>
+  </a>
+  <a class="email-nav-item" onclick="showEmail(2)" href="#">
+    <div class="eni-num">2</div>
+    <div><div class="eni-title">The Proof</div><div class="eni-day">Day 3</div></div>
+  </a>
+  <a class="email-nav-item" onclick="showEmail(3)" href="#">
+    <div class="eni-num">3</div>
+    <div><div class="eni-title">The Case Study</div><div class="eni-day">Day 6</div></div>
+  </a>
+  <a class="email-nav-item" onclick="showEmail(4)" href="#">
+    <div class="eni-num">4</div>
+    <div><div class="eni-title">The Free Audit</div><div class="eni-day">Day 10</div></div>
+  </a>
+  <a class="email-nav-item" onclick="showEmail(5)" href="#">
+    <div class="eni-num">5</div>
+    <div><div class="eni-title">The Urgency</div><div class="eni-day">Day 14</div></div>
+  </a>
+  <a class="email-nav-item" onclick="showEmail(6)" href="#">
+    <div class="eni-num">6</div>
+    <div><div class="eni-title">The Breakup</div><div class="eni-day">Day 21</div></div>
+  </a>
+
+  <div class="sidebar-label">Personalisation</div>
+  <div style="font-size:11px;color:rgba(255,255,255,.45);line-height:1.65;padding:0 4px">
+    Replace:<br>
+    <span style="color:rgba(255,255,255,.65)">[FIRST NAME]</span> — their first name<br>
+    <span style="color:rgba(255,255,255,.65)">[CLUB NAME]</span> — golf club name<br>
+    <span style="color:rgba(255,255,255,.65)">[LOCATION]</span> — city/region<br>
+    <span style="color:rgba(255,255,255,.65)">[SUPPLIER]</span> — known supplier
+  </div>
+
+  <div class="sidebar-info">
+    <strong>Send from:</strong><br>
+    shepherd@shepherdsignals.com<br><br>
+    <strong>Best send times:</strong><br>
+    Tue–Thu, 7–9am recipient timezone
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="top-bar">
+    <div>
+      <div class="top-bar-title">World-Class Cold Email Funnel</div>
+      <div class="top-bar-sub">6-email sequence · Golf clubs worldwide · ~21 day cadence</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <span class="badge badge-green">6 Emails</span>
+      <span class="badge badge-gold">Golf Clubs Worldwide</span>
+      <span class="badge badge-gray">~21 Day Sequence</span>
+    </div>
+  </div>
+
+  <!-- Sequence Map -->
+  <div style="padding:28px 40px 0">
+    <div class="sequence-map">
+      <div class="sm-title">Full Sequence Flow</div>
+      <div class="sm-steps">
+        <div class="sm-step"><div class="sms-box active" id="sm-1" onclick="showEmail(1)"><div class="sms-day">Day 1</div><div class="sms-name">Cold Open</div><div class="sms-type">Cold outreach</div></div></div>
+        <div class="sm-step"><div class="sms-box" id="sm-2" onclick="showEmail(2)"><div class="sms-day">Day 3</div><div class="sms-name">The Proof</div><div class="sms-type">Value + data</div></div></div>
+        <div class="sm-step"><div class="sms-box" id="sm-3" onclick="showEmail(3)"><div class="sms-day">Day 6</div><div class="sms-name">Case Study</div><div class="sms-type">Social proof</div></div></div>
+        <div class="sm-step"><div class="sms-box" id="sm-4" onclick="showEmail(4)"><div class="sms-day">Day 10</div><div class="sms-name">Free Audit</div><div class="sms-type">Risk reversal</div></div></div>
+        <div class="sm-step"><div class="sms-box" id="sm-5" onclick="showEmail(5)"><div class="sms-day">Day 14</div><div class="sms-name">Urgency</div><div class="sms-type">Soft pressure</div></div></div>
+        <div class="sm-step" style="flex:none"><div class="sms-box" id="sm-6" onclick="showEmail(6)"><div class="sms-day">Day 21</div><div class="sms-name">Breakup</div><div class="sms-type">Final email</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ EMAIL 1 ═══ -->
+  <div class="email-section active" id="email-1">
+    <div class="email-meta">
+      <div class="em-item"><div class="em-label">Email</div><div class="em-val">1 of 6</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Send Day</div><div class="em-val">Day 1</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Type</div><div class="em-val">Cold Open</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Goal</div><div class="em-val">Open rate + curiosity</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Target Open Rate</div><div class="em-val">42–55%</div></div>
+    </div>
+
+    <div class="email-preview">
+      <div class="ep-chrome">
+        <div class="ep-dot" style="background:#FF5F57"></div>
+        <div class="ep-dot" style="background:#FEBC2E"></div>
+        <div class="ep-dot" style="background:#28C840"></div>
+      </div>
+      <div class="ep-img-header">
+        <img src="./images/golf-course-1 (1).png" alt="Golf course fairway">
+        <div class="ep-img-overlay"></div>
+        <div class="ep-img-text">
+          <div class="ep-img-logo">
+            <div class="ep-img-logo-mark"><svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#D4942A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="ep-img-logo-name">ShepherdSignals</span>
+          </div>
+          <div class="ep-img-headline">Every Invoice Watched.</div>
+          <div class="ep-img-sub">AI-powered expense intelligence for golf clubs</div>
+        </div>
+      </div>
+      <div class="ep-header">
+        <div class="ep-from">Shepherd Sargent <span class="ep-from-addr">&lt;shepherd@shepherdsignals.com&gt;</span></div>
+        <div class="ep-subject">Sysco charged [CLUB NAME] more this month — did you notice?</div>
+      </div>
+      <div class="ep-body">[FIRST NAME],
+
+Your Sysco invoice went up again.
+
+Not by a lot. Maybe 8%. Maybe 12%. But across a full year at a club your size, that's between $18,000 and $40,000 in cost that appeared quietly — no phone call, no warning, just a higher number on the same line items.
+
+Most golf club GMs find out 6–18 months late, if they find out at all.
+
+I built ShepherdSignals specifically for this. It reads every invoice you receive — food, beverage, linen, utilities, chemicals — and flags every price increase within 24 hours, with the exact dollar impact and the cheapest verified alternative.
+
+The average club we've worked with finds $38,000–$62,000 in recoverable annual overspend in the first audit.
+
+I'd like to run one for [CLUB NAME] — at no cost.
+
+It takes 15 minutes on your end. You send me a month of invoices. I return a full report showing exactly what you're overpaying, by how much, and where to switch.
+
+Worth a look?</div>
+      <div class="ep-sig">
+        <div class="ep-sig-name">Shepherd Sargent</div>
+        <div class="ep-sig-title">Founder, ShepherdSignals</div>
+        <div class="ep-sig-logo">
+          <div class="ep-sig-mark"><svg width="13" height="13" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="4" r="1.6" fill="#D4942A"/></svg></div>
+          <span class="ep-sig-brand">ShepherdSignals</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-300);margin-top:6px;font-family:'DM Mono',monospace">shepherdsignals.com · Built in Kelowna, BC</div>
+      </div>
+    </div>
+
+    <div class="notes-section">
+      <div class="note-card">
+        <div class="note-label nl-strategy">Strategy</div>
+        <div class="note-content">Opens with a specific, believable accusation — not a generic pitch. "Did you notice?" creates a pattern interrupt. GMs know their costs go up; they rarely know by exactly how much. The subject line will get opens because it feels personal and timely.</div>
+      </div>
+      <div class="note-card">
+        <div class="note-label nl-hook">Why it works</div>
+        <div class="note-content">No fluff. No "I hope this finds you well." Direct, credible, and specific. The $38K–$62K range is real enough to be credible, specific enough to create urgency. The free audit CTA has zero risk — the barrier is a month of invoices, not a credit card.</div>
+      </div>
+      <div class="note-card">
+        <div class="note-label nl-cta">Call to action</div>
+        <div class="note-content">Soft reply CTA — "Worth a look?" The lowest possible friction. No calendar link, no form. A one-word reply is enough to qualify the lead and trigger Shepherd's callback workflow.</div>
+      </div>
+      <div class="note-card">
+        <div class="note-label nl-timing">Personalisation tips</div>
+        <div class="note-content">For best results: research the club's known supplier (often listed on their website or LinkedIn). Replace [SUPPLIER] with the real name. Mention the specific city or province. Clubs in BC can reference BCLDB pricing — very specific and credible.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ EMAIL 2 ═══ -->
+  <div class="email-section" id="email-2">
+    <div class="email-meta">
+      <div class="em-item"><div class="em-label">Email</div><div class="em-val">2 of 6</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Send Day</div><div class="em-val">Day 3</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Type</div><div class="em-val">Value + Data</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Goal</div><div class="em-val">Establish credibility, push to sample report</div></div>
+    </div>
+
+    <div class="email-preview">
+      <div class="ep-chrome">
+        <div class="ep-dot" style="background:#FF5F57"></div>
+        <div class="ep-dot" style="background:#FEBC2E"></div>
+        <div class="ep-dot" style="background:#28C840"></div>
+      </div>
+      <div class="ep-img-header">
+        <img src="./images/gm-invoice-desk.png" alt="GM reviewing invoices at desk">
+        <div class="ep-img-overlay"></div>
+        <div class="ep-img-text">
+          <div class="ep-img-logo">
+            <div class="ep-img-logo-mark"><svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#D4942A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="ep-img-logo-name">ShepherdSignals</span>
+          </div>
+          <div class="ep-img-headline">What Overpaying Looks Like.</div>
+          <div class="ep-img-sub">Real numbers. Real vendors. Real savings.</div>
+        </div>
+      </div>
+      <div class="ep-header">
+        <div class="ep-from">Shepherd Sargent <span class="ep-from-addr">&lt;shepherd@shepherdsignals.com&gt;</span></div>
+        <div class="ep-subject">What a real audit looks like (takes 60 seconds)</div>
+      </div>
+      <div class="ep-body">[FIRST NAME],
+
+Sending a quick follow-up because I know the question you're probably asking:
+
+"Is this actually worth my time?"
+
+So I put together a sample audit — real numbers, real vendor names, the kind of report [CLUB NAME] would receive.
+
+A few things you'll see in it:
+
+→ A golf club in Kelowna paying 23% above market for romaine lettuce from Sysco — $4,200/year on one line item
+→ An Alsco linen contract that auto-renewed at +11.2% — $3,588/year found with 30 days left to cancel
+→ A CO2 contract where switching to bulk delivery saves $2,100 annually with zero service change
+
+The total in the sample? $48,420 in annual savings — identified in one audit.
+
+These aren't edge cases. This is what overpaying looks like when no one is watching.
+
+You can view the sample report here: shepherdsignals.com/sample-audit
+
+If it looks like something [CLUB NAME] could use, I'll run the real one — at no cost, in 24 hours.</div>
+      <div class="ep-sig">
+        <div class="ep-sig-name">Shepherd Sargent</div>
+        <div class="ep-sig-title">Founder, ShepherdSignals</div>
+        <div class="ep-sig-logo">
+          <div class="ep-sig-mark"><svg width="13" height="13" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="4" r="1.6" fill="#D4942A"/></svg></div>
+          <span class="ep-sig-brand">ShepherdSignals</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-300);margin-top:6px;font-family:'DM Mono',monospace">shepherdsignals.com · Built in Kelowna, BC</div>
+      </div>
+    </div>
+
+    <div class="notes-section">
+      <div class="note-card">
+        <div class="note-label nl-strategy">Strategy</div>
+        <div class="note-content">Answer the objection before it's raised. The GM is wondering if it's worth their time — show them, don't tell them. Three specific bullet points with real dollar amounts outperform any amount of descriptive copy.</div>
+      </div>
+      <div class="note-card">
+        <div class="note-label nl-hook">The sample audit link</div>
+        <div class="note-content">Linking to the sample audit (sample-audit.html) does two things: proves the product works without requiring trust, and gives Shepherd a tracking signal (if using email tracking) to see who clicked. Anyone who clicks is a warm lead.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ EMAIL 3 ═══ -->
+  <div class="email-section" id="email-3">
+    <div class="email-meta">
+      <div class="em-item"><div class="em-label">Email</div><div class="em-val">3 of 6</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Send Day</div><div class="em-val">Day 6</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Type</div><div class="em-val">Social Proof — Case Study</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Goal</div><div class="em-val">Make it real with a story</div></div>
+    </div>
+
+    <div class="email-preview">
+      <div class="ep-chrome">
+        <div class="ep-dot" style="background:#FF5F57"></div>
+        <div class="ep-dot" style="background:#FEBC2E"></div>
+        <div class="ep-dot" style="background:#28C840"></div>
+      </div>
+      <div class="ep-img-header">
+        <img src="./images/golf-course-2 (1).png" alt="Lush golf course at dusk">
+        <div class="ep-img-overlay"></div>
+        <div class="ep-img-text">
+          <div class="ep-img-logo">
+            <div class="ep-img-logo-mark"><svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#D4942A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="ep-img-logo-name">ShepherdSignals</span>
+          </div>
+          <div class="ep-img-headline">$48,420. One Audit.</div>
+          <div class="ep-img-sub">A BC golf club. Five categories. One conversation.</div>
+        </div>
+      </div>
+      <div class="ep-header">
+        <div class="ep-from">Shepherd Sargent <span class="ep-from-addr">&lt;shepherd@shepherdsignals.com&gt;</span></div>
+        <div class="ep-subject">The GM who saved $48k without changing a single supplier</div>
+      </div>
+      <div class="ep-body">[FIRST NAME],
+
+Here's a story worth 90 seconds.
+
+A general manager at a golf club in BC came to me six months ago. Not because he knew he was overpaying — because he suspected he might be, and had no way to prove it.
+
+He was spending around $280,000 a year across food, beverage, linen, and utilities. He'd been with the same Sysco rep for 11 years. He considered the relationship a partnership.
+
+The audit told a different story.
+
+Across five expense categories, we found:
+— $14,200/year in food and beverage price creep (romaine, proteins, and house wine)
+— $8,400/year in linen contract overpayment versus Cintas rates
+— $6,800/year in utility anomalies across waste pickup and CO2
+— $19,020 in smaller items across maintenance and other vendors
+
+Total: $48,420 identified in the first audit. He renegotiated three contracts, switched one supplier, and kept every existing vendor relationship intact.
+
+He didn't change how his club runs. He just stopped paying 20% more than he needed to.
+
+If you want to know what [CLUB NAME] looks like — I'll run it at no cost.
+
+Just reply with "audit" and I'll take it from there.</div>
+      <div class="ep-sig">
+        <div class="ep-sig-name">Shepherd Sargent</div>
+        <div class="ep-sig-title">Founder, ShepherdSignals</div>
+        <div class="ep-sig-logo">
+          <div class="ep-sig-mark"><svg width="13" height="13" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="4" r="1.6" fill="#D4942A"/></svg></div>
+          <span class="ep-sig-brand">ShepherdSignals</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-300);margin-top:6px;font-family:'DM Mono',monospace">shepherdsignals.com · Built in Kelowna, BC</div>
+      </div>
+    </div>
+
+    <div class="notes-section">
+      <div class="note-card">
+        <div class="note-label nl-strategy">Strategy</div>
+        <div class="note-content">Stories are more persuasive than stats. The case study mirrors the prospect's exact situation — a golf club GM, long-term supplier relationships, no idea they were overpaying. The CTA "just reply with 'audit'" is the lowest possible barrier to entry. One word triggers Shepherd's whole workflow.</div>
+      </div>
+      <div class="note-card">
+        <div class="note-label nl-hook">Key framing</div>
+        <div class="note-content">"He didn't change how his club runs" is the most important line. GMs are risk-averse — they worry about service disruption, relationship damage, operational change. Remove that fear and the sale becomes easier.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ EMAIL 4 ═══ -->
+  <div class="email-section" id="email-4">
+    <div class="email-meta">
+      <div class="em-item"><div class="em-label">Email</div><div class="em-val">4 of 6</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Send Day</div><div class="em-val">Day 10</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Type</div><div class="em-val">Risk Reversal — Free Audit Push</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Goal</div><div class="em-val">Eliminate all reasons not to try</div></div>
+    </div>
+
+    <div class="email-preview">
+      <div class="ep-chrome">
+        <div class="ep-dot" style="background:#FF5F57"></div>
+        <div class="ep-dot" style="background:#FEBC2E"></div>
+        <div class="ep-dot" style="background:#28C840"></div>
+      </div>
+      <div class="ep-img-header">
+        <img src="./images/golf-course-3 (1).png" alt="Championship golf course">
+        <div class="ep-img-overlay"></div>
+        <div class="ep-img-text">
+          <div class="ep-img-logo">
+            <div class="ep-img-logo-mark"><svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#D4942A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="ep-img-logo-name">ShepherdSignals</span>
+          </div>
+          <div class="ep-img-headline">Zero Risk. Full Audit.</div>
+          <div class="ep-img-sub">Performance guarantee · Results in 24 hours</div>
+        </div>
+      </div>
+      <div class="ep-header">
+        <div class="ep-from">Shepherd Sargent <span class="ep-from-addr">&lt;shepherd@shepherdsignals.com&gt;</span></div>
+        <div class="ep-subject">I'll do it free — no catch</div>
+      </div>
+      <div class="ep-body">[FIRST NAME],
+
+I want to make this the easiest yes you say all week.
+
+Here's the deal:
+
+Send me one month of invoices — any format, any categories you have. I'll run a full expense audit on [CLUB NAME] and return a complete report within 24 hours.
+
+The report tells you:
+· Every vendor who charged you more than last month or last year
+· Every item above regional market rate — with the exact alternative and savings
+· Your top 3 actions, ranked by annual dollar impact
+
+There is no invoice minimum, no subscription required, no commitment of any kind.
+
+If I don't find savings that exceed a month's service fee, your first month with ShepherdSignals is free. That's our written guarantee.
+
+If I don't find anything worth your time? You've spent 15 minutes and learned something useful about your costs.
+
+There is no version of this where you lose.
+
+To get started: shepherdsignals.com/portal
+
+Or just reply and I'll send you the secure upload link directly.</div>
+      <div class="ep-sig">
+        <div class="ep-sig-name">Shepherd Sargent</div>
+        <div class="ep-sig-title">Founder, ShepherdSignals</div>
+        <div class="ep-sig-logo">
+          <div class="ep-sig-mark"><svg width="13" height="13" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="4" r="1.6" fill="#D4942A"/></svg></div>
+          <span class="ep-sig-brand">ShepherdSignals</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-300);margin-top:6px;font-family:'DM Mono',monospace">shepherdsignals.com · Built in Kelowna, BC</div>
+      </div>
+    </div>
+
+    <div class="notes-section">
+      <div class="note-card">
+        <div class="note-label nl-strategy">Strategy</div>
+        <div class="note-content">By Day 10, the prospect has seen the product, heard a story, and still hasn't responded. Now we dismantle every remaining objection. The performance guarantee does the heavy lifting — it converts skeptics because it shifts all the risk to ShepherdSignals, where Shepherd is confident.</div>
+      </div>
+      <div class="note-card">
+        <div class="note-label nl-cta">Dual CTA</div>
+        <div class="note-content">Two paths: the portal link (self-serve) and a direct reply (Shepherd handles it). This captures both personality types — independent GMs who want to start now, and relationship-first GMs who want to talk first.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ EMAIL 5 ═══ -->
+  <div class="email-section" id="email-5">
+    <div class="email-meta">
+      <div class="em-item"><div class="em-label">Email</div><div class="em-val">5 of 6</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Send Day</div><div class="em-val">Day 14</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Type</div><div class="em-val">Soft Urgency</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Goal</div><div class="em-val">Activate fence-sitters</div></div>
+    </div>
+
+    <div class="email-preview">
+      <div class="ep-chrome">
+        <div class="ep-dot" style="background:#FF5F57"></div>
+        <div class="ep-dot" style="background:#FEBC2E"></div>
+        <div class="ep-dot" style="background:#28C840"></div>
+      </div>
+      <div class="ep-img-header">
+        <img src="./images/gm-invoice-desk-2.png" alt="Invoice review under pressure">
+        <div class="ep-img-overlay"></div>
+        <div class="ep-img-text">
+          <div class="ep-img-logo">
+            <div class="ep-img-logo-mark"><svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#D4942A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="ep-img-logo-name">ShepherdSignals</span>
+          </div>
+          <div class="ep-img-headline">$730 Per Week. Tick.</div>
+          <div class="ep-img-sub">The cost of waiting adds up quietly</div>
+        </div>
+      </div>
+      <div class="ep-header">
+        <div class="ep-from">Shepherd Sargent <span class="ep-from-addr">&lt;shepherd@shepherdsignals.com&gt;</span></div>
+        <div class="ep-subject">Every week you wait costs [CLUB NAME] roughly $730</div>
+      </div>
+      <div class="ep-body">[FIRST NAME],
+
+Quick maths on the cost of waiting.
+
+If the average ShepherdSignals client is recovering $38,000 per year in overspend, that's $730 per week.
+
+Every week a golf club goes without an audit is $730 that doesn't come back.
+
+I know "we'll look into it" and "not the right time" are easy answers. I've heard them from GMs who later sent me invoices and found exactly what I told them they'd find.
+
+The right time to know what you're overpaying is always right now.
+
+If this week isn't the week — I understand. But if there's any chance [CLUB NAME] is overpaying on food, beverage, linen, or any other category, the cost of a 15-minute conversation is far lower than the cost of another month of silence.
+
+No pressure. Just an honest offer from someone who knows what golf club invoices look like.
+
+Want me to run it?</div>
+      <div class="ep-sig">
+        <div class="ep-sig-name">Shepherd Sargent</div>
+        <div class="ep-sig-title">Founder, ShepherdSignals</div>
+        <div class="ep-sig-logo">
+          <div class="ep-sig-mark"><svg width="13" height="13" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="4" r="1.6" fill="#D4942A"/></svg></div>
+          <span class="ep-sig-brand">ShepherdSignals</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-300);margin-top:6px;font-family:'DM Mono',monospace">shepherdsignals.com · Built in Kelowna, BC</div>
+      </div>
+    </div>
+
+    <div class="notes-section">
+      <div class="note-card">
+        <div class="note-label nl-strategy">Strategy</div>
+        <div class="note-content">Reframe inaction as the costly choice. "$730/week" is a number the GM can feel — it's concrete, it's continuous, and it doesn't require any action. This email works by making "waiting" feel expensive without being pushy or aggressive.</div>
+      </div>
+      <div class="note-card">
+        <div class="note-label nl-hook">Tone note</div>
+        <div class="note-content">"No pressure. Just an honest offer" is critical. By this point the GM has seen 4 emails. If they haven't replied, they're on the fence — not hostile. This email respects that while maintaining momentum. Aggressive urgency here would lose the lead.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ EMAIL 6 ═══ -->
+  <div class="email-section" id="email-6">
+    <div class="email-meta">
+      <div class="em-item"><div class="em-label">Email</div><div class="em-val">6 of 6</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Send Day</div><div class="em-val">Day 21</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Type</div><div class="em-val">Breakup Email</div></div>
+      <div class="em-div"></div>
+      <div class="em-item"><div class="em-label">Goal</div><div class="em-val">Final reply trigger · Permission to re-engage later</div></div>
+    </div>
+
+    <div class="email-preview">
+      <div class="ep-chrome">
+        <div class="ep-dot" style="background:#FF5F57"></div>
+        <div class="ep-dot" style="background:#FEBC2E"></div>
+        <div class="ep-dot" style="background:#28C840"></div>
+      </div>
+      <div class="ep-img-header">
+        <img src="./images/golf-course-3.png" alt="Golf course at golden hour">
+        <div class="ep-img-overlay"></div>
+        <div class="ep-img-text">
+          <div class="ep-img-logo">
+            <div class="ep-img-logo-mark"><svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#D4942A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="ep-img-logo-name">ShepherdSignals</span>
+          </div>
+          <div class="ep-img-headline">Every Dollar Counts.</div>
+          <div class="ep-img-sub">The offer stands — whenever the time is right</div>
+        </div>
+      </div>
+      <div class="ep-header">
+        <div class="ep-from">Shepherd Sargent <span class="ep-from-addr">&lt;shepherd@shepherdsignals.com&gt;</span></div>
+        <div class="ep-subject">Closing the loop on [CLUB NAME]</div>
+      </div>
+      <div class="ep-body">[FIRST NAME],
+
+This is my last email — I don't want to clog your inbox.
+
+I'll assume the timing hasn't been right, or that [CLUB NAME] has other priorities right now. That's completely fair.
+
+If anything changes — a new contract renewal coming up, a Sysco invoice that looks higher than usual, a GM instinct that something's off — my offer stands.
+
+One month of invoices. Full audit. 24 hours. No commitment.
+
+And if you've been happy with your costs and never want to hear from me again, just say the word and I'll remove you from my list immediately.
+
+Either way, I wish [CLUB NAME] a strong season.
+
+— Shepherd</div>
+      <div class="ep-sig">
+        <div class="ep-sig-name">Shepherd Sargent</div>
+        <div class="ep-sig-title">Founder, ShepherdSignals</div>
+        <div class="ep-sig-logo">
+          <div class="ep-sig-mark"><svg width="13" height="13" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="4" r="1.6" fill="#D4942A"/></svg></div>
+          <span class="ep-sig-brand">ShepherdSignals</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-300);margin-top:6px;font-family:'DM Mono',monospace">shepherdsignals.com · Built in Kelowna, BC</div>
+      </div>
+    </div>
+
+    <div class="notes-section">
+      <div class="note-card">
+        <div class="note-label nl-strategy">Why breakup emails work</div>
+        <div class="note-content">Counterintuitively, the final email in a sequence often gets the highest reply rate. When prospects know contact is ending, many who were passively interested finally respond. "Is this the last one?" triggers a different psychological response than the previous 5 emails. Typically 20–35% of all replies in a sequence come from the breakup email.</div>
+      </div>
+      <div class="note-card">
+        <div class="note-label nl-timing">Re-engagement</div>
+        <div class="note-content">Add non-responders to a 90-day re-engagement sequence. Golf clubs think in seasons — a GM who ignores emails in January may respond in March when their budget cycle starts, or in October when contracts renew. Never delete a warm prospect; just cool them down.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .main -->
+</div><!-- end .layout -->
+
+<script>
+function showEmail(n) {
+  document.querySelectorAll('.email-section').forEach(function(s){s.classList.remove('active')});
+  document.querySelectorAll('.email-nav-item').forEach(function(s){s.classList.remove('active')});
+  document.querySelectorAll('.sms-box').forEach(function(s){s.classList.remove('active')});
+  var sec = document.getElementById('email-' + n);
+  if(sec) sec.classList.add('active');
+  var sm = document.getElementById('sm-' + n);
+  if(sm) sm.classList.add('active');
+  var navItems = document.querySelectorAll('.email-nav-item');
+  if(navItems[n-1]) navItems[n-1].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  return false;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShepherdSignals — Automation Setup Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green-800:#0A3D2E;--green-700:#0D5240;--green-500:#157A60;--green-100:rgba(21,122,96,.08);
+  --gold-500:#D4942A;--gold-100:rgba(212,148,42,.08);--gold-border:rgba(212,148,42,.2);
+  --gray-900:#1C1C1A;--gray-700:#3A3A38;--gray-500:#6B6B65;--gray-300:#B8B8B2;--gray-100:#EEEEE8;--gray-50:#F7F7F3;
+  --white:#FFFFFF;--bg:#FAFAF7;
+  --red:#B83A2A;--red-bg:rgba(184,58,42,.07);
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--gray-900);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:500;letter-spacing:-.03em}
+
+nav{background:var(--green-800);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-mark{width:28px;height:28px;background:rgba(255,255,255,.15);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.nav-logo-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:500;color:#fff}
+.nav-badge{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;background:rgba(212,148,42,.2);color:#D4942A;border:1px solid rgba(212,148,42,.3)}
+
+.hero-bar{background:linear-gradient(135deg,var(--green-800),#0D5240);padding:60px 40px;text-align:center;color:#fff}
+.hero-bar h1{font-size:clamp(28px,4vw,44px);margin-bottom:12px;color:#fff}
+.hero-bar p{font-size:15px;color:rgba(255,255,255,.6);max-width:560px;margin:0 auto;line-height:1.75}
+.hero-badges{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:24px;flex-wrap:wrap}
+.hbadge{font-size:11px;font-weight:500;padding:5px 14px;border-radius:100px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7)}
+
+.page{max-width:900px;margin:0 auto;padding:52px 32px 100px}
+
+/* FLOW DIAGRAM */
+.flow{display:flex;flex-direction:column;gap:0;margin-bottom:52px}
+.flow-step{display:flex;align-items:stretch;gap:20px;position:relative}
+.flow-step:not(:last-child)::after{content:'';position:absolute;left:21px;top:48px;bottom:-24px;width:2px;background:var(--gray-100);z-index:0}
+.flow-step{margin-bottom:24px}
+.flow-num{width:44px;height:44px;border-radius:50%;background:var(--green-800);color:#fff;font-family:'DM Mono',monospace;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1;box-shadow:0 0 0 4px var(--bg)}
+.flow-content{flex:1;background:var(--white);border:1px solid var(--gray-100);border-radius:14px;padding:20px 22px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.flow-content h3{font-size:16px;margin-bottom:6px;line-height:1.3}
+.flow-content p{font-size:13px;color:var(--gray-500);line-height:1.7;margin-bottom:0}
+.flow-tool{display:flex;align-items:center;gap:6px;margin-top:10px;flex-wrap:wrap}
+.tool-badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;font-family:'DM Mono',monospace}
+.tb-green{background:var(--green-100);color:var(--green-500);border:1px solid rgba(21,122,96,.2)}
+.tb-gold{background:var(--gold-100);color:var(--gold-500);border:1px solid var(--gold-border)}
+.tb-gray{background:var(--gray-50);color:var(--gray-500);border:1px solid var(--gray-100)}
+
+/* SECTION */
+.section{margin-bottom:52px}
+.section-kicker{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green-500);margin-bottom:8px;font-family:'DM Mono',monospace}
+.section h2{font-size:clamp(22px,3vw,30px);margin-bottom:20px}
+
+/* SETUP CARDS */
+.setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.setup-card{background:var(--white);border:1px solid var(--gray-100);border-radius:16px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.setup-card-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.sc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sc-title{font-size:15px;font-weight:600;color:var(--gray-900);margin-bottom:2px}
+.sc-sub{font-size:11px;color:var(--gray-500)}
+.setup-steps{display:flex;flex-direction:column;gap:10px}
+.setup-step{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--gray-700);line-height:1.6}
+.setup-step-num{width:20px;height:20px;border-radius:50%;background:var(--green-800);color:#fff;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.setup-link{color:var(--green-500);font-weight:500;text-decoration:none}
+.setup-link:hover{text-decoration:underline}
+.time-badge{font-size:10px;font-family:'DM Mono',monospace;color:var(--gray-300);margin-top:12px;display:block}
+
+/* PHONE NOTIFICATION BOX */
+.phone-box{background:linear-gradient(135deg,var(--green-800),#0D5240);border-radius:20px;padding:32px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden}
+.phone-box::before{content:'';position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(212,148,42,.15),transparent 65%)}
+.pb-kicker{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px;font-family:'DM Mono',monospace}
+.pb-h2{font-size:24px;color:#fff;margin-bottom:8px}
+.pb-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:24px;max-width:500px}
+.pb-options{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.pb-option{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px}
+.pbo-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--gold-500);margin-bottom:6px}
+.pbo-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px}
+.pbo-body{font-size:11px;color:rgba(255,255,255,.5);line-height:1.5}
+.pbo-badge{font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:100px;background:rgba(212,148,42,.2);color:var(--gold-500);border:1px solid rgba(212,148,42,.3);display:inline-block;margin-top:8px;font-family:'DM Mono',monospace}
+.pbo-badge.recommended{background:rgba(21,122,96,.3);color:#5ad4b4;border-color:rgba(21,122,96,.4)}
+
+/* SMS PREVIEW */
+.sms-preview{background:var(--white);border:1px solid var(--gray-100);border-radius:16px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.04);margin-bottom:16px}
+.sms-phone{background:var(--gray-50);border-radius:12px;padding:16px;max-width:340px}
+.sms-header{font-size:11px;font-weight:600;color:var(--gray-500);text-align:center;margin-bottom:12px;font-family:'DM Mono',monospace}
+.sms-bubble{background:var(--green-800);color:#fff;border-radius:14px 14px 4px 14px;padding:12px 15px;font-size:13px;line-height:1.6;max-width:280px;margin-left:auto}
+.sms-time{font-size:10px;color:var(--gray-300);text-align:right;margin-top:5px;font-family:'DM Mono',monospace}
+
+/* ZAPIER STEPS */
+.zap-steps{display:flex;flex-direction:column;gap:12px}
+.zap-step{background:var(--white);border:1px solid var(--gray-100);border-radius:12px;padding:16px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.zs-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.zs-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-300);font-family:'DM Mono',monospace}
+.zs-title{font-size:13px;font-weight:600;color:var(--gray-900)}
+.zs-sub{font-size:12px;color:var(--gray-500);margin-top:2px}
+.zs-arrow{margin-left:auto;color:var(--gray-300);font-size:20px}
+
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:10px}
+.check-item{display:flex;align-items:center;gap:12px;padding:13px 16px;background:var(--white);border:1px solid var(--gray-100);border-radius:10px;font-size:13px;color:var(--gray-700);box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.check-box{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--gray-100);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.check-item.done .check-box{background:var(--green-500);border-color:var(--green-500)}
+
+@media(max-width:700px){.setup-grid,.pb-options{grid-template-columns:1fr}nav{padding:0 20px}.page{padding:32px 20px 80px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="website-sample.html">
+    <div class="nav-logo-mark">
+      <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M3 12.5L6.5 6.5L9.5 10.5L13 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="4" r="1.6" fill="#D4942A"/></svg>
+    </div>
+    <span class="nav-logo-name">ShepherdSignals</span>
+  </a>
+  <span class="nav-badge">Automation Guide</span>
+</nav>
+
+<div class="hero-bar">
+  <h1>Full Automation Setup</h1>
+  <p>Everything that happens automatically — from a lead visiting the site to Shepherd's phone ringing and the client accessing their audit.</p>
+  <div class="hero-badges">
+    <span class="hbadge">Zero manual work</span>
+    <span class="hbadge">Stripe · Zapier · Calendly · Twilio</span>
+    <span class="hbadge">~2 hours to set up once</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- THE FULL FLOW -->
+  <div class="section">
+    <p class="section-kicker">How it works</p>
+    <h2>The complete automated pipeline</h2>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <h3>Lead visits the site, fills out audit request form</h3>
+          <p>The "Book free audit" form on website-sample.html captures name, club, email, and phone. On submit, it fires a webhook to Zapier in the background.</p>
+          <div class="flow-tool">
+            <span class="tool-badge tb-gray">website-sample.html</span>
+            <span class="tool-badge tb-green">Webhook → Zapier</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <h3>Shepherd's phone gets an instant SMS</h3>
+          <p>Within seconds of form submission, Twilio sends Shepherd a text: "New lead: [Name], [Club], [email], [phone]. Reply to call them now." No app to check. No email to miss.</p>
+          <div class="flow-tool">
+            <span class="tool-badge tb-green">Zapier → Twilio SMS</span>
+            <span class="tool-badge tb-gold">~30 seconds from form to phone</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <h3>Client receives a calendar booking link automatically</h3>
+          <p>Zapier also sends the client a Calendly link via email: "Shepherd will reach out within 24 hours. In the meantime, book a call at a time that works for you." The call lands in Shepherd's calendar automatically.</p>
+          <div class="flow-tool">
+            <span class="tool-badge tb-green">Zapier → Gmail → Client</span>
+            <span class="tool-badge tb-green">Calendly booking widget</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-content">
+          <h3>Client pays → portal unlocks automatically</h3>
+          <p>When the client pays via Stripe, Stripe sends a webhook to Zapier. Zapier immediately sends the client an email with their portal link and a unique access token. No manual invoice, no manual follow-up.</p>
+          <div class="flow-tool">
+            <span class="tool-badge tb-green">Stripe Webhook → Zapier</span>
+            <span class="tool-badge tb-green">Automated welcome email</span>
+            <span class="tool-badge tb-gray">portal.html access</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <div class="flow-content">
+          <h3>Shepherd's phone confirms the payment</h3>
+          <p>A second Twilio SMS fires when payment is confirmed: "Payment received: [Club], [Plan], $[Amount]. They've been sent the portal link. Reach out to welcome them within 24 hours."</p>
+          <div class="flow-tool">
+            <span class="tool-badge tb-gold">Stripe → Zapier → Twilio</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">6</div>
+        <div class="flow-content">
+          <h3>Email sequence runs on autopilot</h3>
+          <p>For cold leads (non-openers, non-payers), Mailchimp or ConvertKit runs the 6-email funnel automatically — Day 1, 3, 6, 10, 14, 21. Anyone who pays gets removed from the sequence automatically via a Zapier trigger.</p>
+          <div class="flow-tool">
+            <span class="tool-badge tb-green">Mailchimp / ConvertKit</span>
+            <span class="tool-badge tb-gray">Auto-remove on payment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHONE NOTIFICATION -->
+  <div class="section">
+    <p class="section-kicker">Shepherd's phone</p>
+    <h2>Callback signal setup</h2>
+
+    <div class="phone-box">
+      <div class="pb-kicker">3 options — pick one</div>
+      <h2 class="pb-h2">How Shepherd gets notified</h2>
+      <p class="pb-sub">Every time a lead submits a form or a client pays, Shepherd gets an instant signal. Here are the three options ranked by reliability.</p>
+      <div class="pb-options">
+        <div class="pb-option">
+          <div class="pbo-num">A</div>
+          <div class="pbo-title">Twilio SMS</div>
+          <div class="pbo-body">Real SMS to Shepherd's phone. Instant, reliable, no app needed. $15/month. Recommended.</div>
+          <span class="pbo-badge recommended">Recommended</span>
+        </div>
+        <div class="pb-option">
+          <div class="pbo-num">B</div>
+          <div class="pbo-title">Email to SMS</div>
+          <div class="pbo-body">Send email to Shepherd's carrier address (e.g. 7781234567@txt.bell.ca). Free. Less reliable — can delay.</div>
+          <span class="pbo-badge">Free option</span>
+        </div>
+        <div class="pb-option">
+          <div class="pbo-num">C</div>
+          <div class="pbo-title">Calendly only</div>
+          <div class="pbo-body">No SMS — just calendar notifications. Client books a time, Shepherd gets calendar invite + email. Simpler to set up.</div>
+          <span class="pbo-badge">Simplest</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sms-preview">
+      <p style="font-size:12px;font-weight:600;color:var(--gray-700);margin-bottom:14px">What Shepherd's SMS looks like (Option A):</p>
+      <div class="sms-phone">
+        <div class="sms-header">Twilio · ShepherdSignals</div>
+        <div class="sms-bubble">🔔 NEW LEAD — ShepherdSignals<br><br>Name: Michael Chen<br>Club: Okanagan Golf Club<br>Email: mchen@okgolf.ca<br>Phone: 250-491-7823<br><br>Call within 24hrs for best conversion.<br><br>→ shepherdsignals.com/portal</div>
+        <div class="sms-time">Just now</div>
+      </div>
+    </div>
+
+    <div class="sms-preview" style="margin-top:16px">
+      <p style="font-size:12px;font-weight:600;color:var(--gray-700);margin-bottom:14px">Payment confirmation SMS:</p>
+      <div class="sms-phone">
+        <div class="sms-header">Twilio · ShepherdSignals</div>
+        <div class="sms-bubble">💳 PAYMENT RECEIVED — ShepherdSignals<br><br>Club: Okanagan Golf Club<br>Plan: Annual ($6,588/yr)<br>Client: Michael Chen<br><br>Portal access email sent automatically. Welcome them within 24 hours.</div>
+        <div class="sms-time">Just now</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP CARDS -->
+  <div class="section">
+    <p class="section-kicker">Step-by-step setup</p>
+    <h2>What to set up and where</h2>
+
+    <div class="setup-grid">
+      <!-- Stripe -->
+      <div class="setup-card">
+        <div class="setup-card-header">
+          <div class="sc-icon" style="background:#635BFF15">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#635BFF"/><path d="M12 6c-1.8 0-3 .9-3 2.25C9 10.5 12 11 12 13c0 1.125-1.2 1.5-2.4 1.5-1.2 0-2.4-.375-3-1.5v2.25C7.2 15.75 8.4 16.5 10.2 16.5c2.1 0 3.6-1.05 3.6-3 0-2.25-3-2.625-3-4.125C10.8 8.625 11.4 8.25 12 8.25c1.2 0 2.1.75 2.7 1.5V7.5C14.1 6.75 13.2 6 12 6z" fill="white"/></svg>
+          </div>
+          <div><div class="sc-title">Stripe</div><div class="sc-sub">Payments · ~30 min to set up</div></div>
+        </div>
+        <div class="setup-steps">
+          <div class="setup-step"><div class="setup-step-num">1</div>Create account at <a href="https://stripe.com" class="setup-link">stripe.com</a></div>
+          <div class="setup-step"><div class="setup-step-num">2</div>Go to Products → Payment Links → Create two links: Monthly ($649/mo) and Annual ($6,588/yr)</div>
+          <div class="setup-step"><div class="setup-step-num">3</div>Copy both links into portal.html where it says STRIPE_PAYMENT_LINK_MONTHLY and _ANNUAL</div>
+          <div class="setup-step"><div class="setup-step-num">4</div>In Stripe Dashboard → Developers → Webhooks → Add endpoint: your Zapier webhook URL. Event: payment_intent.succeeded</div>
+          <div class="setup-step"><div class="setup-step-num">5</div>Add your bank account for payouts (Settings → Bank accounts)</div>
+        </div>
+        <span class="time-badge">⏱ ~30 minutes · No code needed</span>
+      </div>
+
+      <!-- Zapier -->
+      <div class="setup-card">
+        <div class="setup-card-header">
+          <div class="sc-icon" style="background:#FF4A0015">
+            <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#FF4A00"/><text x="8" y="28" font-size="22" fill="white" font-family="Arial" font-weight="bold">Z</text></svg>
+          </div>
+          <div><div class="sc-title">Zapier</div><div class="sc-sub">Automation hub · ~45 min total</div></div>
+        </div>
+        <div class="setup-steps">
+          <div class="setup-step"><div class="setup-step-num">1</div>Create account at <a href="https://zapier.com" class="setup-link">zapier.com</a> (free plan covers basic use)</div>
+          <div class="setup-step"><div class="setup-step-num">2</div><strong>Zap 1:</strong> Trigger = Webhooks (new form submission) → Action = Twilio (send SMS to Shepherd) + Gmail (send calendar link to client)</div>
+          <div class="setup-step"><div class="setup-step-num">3</div><strong>Zap 2:</strong> Trigger = Stripe (new payment) → Action = Gmail (send portal access email to client) + Twilio (notify Shepherd)</div>
+          <div class="setup-step"><div class="setup-step-num">4</div><strong>Zap 3:</strong> Trigger = Stripe (new payment) → Action = Mailchimp/ConvertKit (remove from cold sequence)</div>
+        </div>
+        <span class="time-badge">⏱ ~45 minutes · No code · Free up to 100 tasks/month</span>
+      </div>
+
+      <!-- Twilio -->
+      <div class="setup-card">
+        <div class="setup-card-header">
+          <div class="sc-icon" style="background:#F2231515">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#F22335"/><circle cx="12" cy="12" r="5" stroke="white" stroke-width="2"/><circle cx="12" cy="7" r="1.5" fill="white"/><circle cx="12" cy="17" r="1.5" fill="white"/><circle cx="7" cy="12" r="1.5" fill="white"/><circle cx="17" cy="12" r="1.5" fill="white"/></svg>
+          </div>
+          <div><div class="sc-title">Twilio</div><div class="sc-sub">SMS to Shepherd's phone · ~20 min</div></div>
+        </div>
+        <div class="setup-steps">
+          <div class="setup-step"><div class="setup-step-num">1</div>Sign up at <a href="https://twilio.com" class="setup-link">twilio.com</a> → Get a free trial number</div>
+          <div class="setup-step"><div class="setup-step-num">2</div>Add $20 credit (lasts months at low volume)</div>
+          <div class="setup-step"><div class="setup-step-num">3</div>Note your Account SID, Auth Token, and Twilio phone number</div>
+          <div class="setup-step"><div class="setup-step-num">4</div>In Zapier, connect Twilio with these credentials. Set "To" = Shepherd's mobile number</div>
+          <div class="setup-step"><div class="setup-step-num">5</div>Test with a dummy form submission — you should get a text within 30 seconds</div>
+        </div>
+        <span class="time-badge">⏱ ~20 minutes · ~$0.0075 per SMS</span>
+      </div>
+
+      <!-- Calendly -->
+      <div class="setup-card">
+        <div class="setup-card-header">
+          <div class="sc-icon" style="background:#0069FF15">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#0069FF"/><rect x="5" y="6" width="14" height="13" rx="2" stroke="white" stroke-width="1.5"/><path d="M8 4v4M16 4v4M5 11h14" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div><div class="sc-title">Calendly</div><div class="sc-sub">Client call booking · ~15 min</div></div>
+        </div>
+        <div class="setup-steps">
+          <div class="setup-step"><div class="setup-step-num">1</div>Create account at <a href="https://calendly.com" class="setup-link">calendly.com</a> (free plan works)</div>
+          <div class="setup-step"><div class="setup-step-num">2</div>Create an event type: "ShepherdSignals Discovery Call" — 30 min, phone or Zoom</div>
+          <div class="setup-step"><div class="setup-step-num">3</div>Set your availability (block out mornings for golf club time zones — they're early people)</div>
+          <div class="setup-step"><div class="setup-step-num">4</div>Copy your Calendly link — paste it into the Zapier "send calendar email" action</div>
+          <div class="setup-step"><div class="setup-step-num">5</div>Enable email reminders in Calendly (24hr and 1hr before the call)</div>
+        </div>
+        <span class="time-badge">⏱ ~15 minutes · Free plan sufficient</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL PLATFORM -->
+  <div class="section">
+    <p class="section-kicker">Cold email delivery</p>
+    <h2>Setting up the email funnel</h2>
+
+    <div class="zap-steps">
+      <div class="zap-step">
+        <div class="zs-icon" style="background:#FFE01B15;font-size:20px">📧</div>
+        <div>
+          <div class="zs-label">Step 1 — Platform</div>
+          <div class="zs-title">Sign up for Mailchimp (free up to 500 contacts)</div>
+          <div class="zs-sub">mailchimp.com → Create account → Create new Audience: "Golf Clubs Cold Outreach"</div>
+        </div>
+        <div class="zs-arrow">→</div>
+      </div>
+      <div class="zap-step">
+        <div class="zs-icon" style="background:rgba(21,122,96,.08)">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z" stroke="var(--green-500)" stroke-width="1.25" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="zs-label">Step 2 — Import</div>
+          <div class="zs-title">Upload your golf club contacts CSV</div>
+          <div class="zs-sub">Columns: First Name, Last Name, Club Name, Email, City, Province/Country, Primary Supplier (if known)</div>
+        </div>
+        <div class="zs-arrow">→</div>
+      </div>
+      <div class="zap-step">
+        <div class="zs-icon" style="background:rgba(212,148,42,.08)">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="12" rx="1.5" stroke="var(--gold-500)" stroke-width="1.25"/><path d="M3 8l7 5 7-5" stroke="var(--gold-500)" stroke-width="1.25" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="zs-label">Step 3 — Sequence</div>
+          <div class="zs-title">Create a Customer Journey (automation) in Mailchimp</div>
+          <div class="zs-sub">6 emails: Day 1, +2 days, +3 days, +4 days, +4 days, +7 days. Copy text from email-funnel.html into each step.</div>
+        </div>
+        <div class="zs-arrow">→</div>
+      </div>
+      <div class="zap-step">
+        <div class="zs-icon" style="background:rgba(10,61,46,.08)">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="var(--green-500)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="zs-label">Step 4 — Remove on payment</div>
+          <div class="zs-title">Connect Zapier to auto-remove paying clients from the cold sequence</div>
+          <div class="zs-sub">Zapier: Trigger = Stripe payment → Action = Mailchimp: unsubscribe or move to "Clients" audience. They never receive another cold email.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINDING GOLF CLUBS WORLDWIDE -->
+  <div class="section">
+    <p class="section-kicker">Building the list</p>
+    <h2>How to find golf club GMs worldwide</h2>
+    <div class="setup-grid">
+      <div class="setup-card">
+        <div class="sc-title" style="margin-bottom:12px">🌐 Free Sources</div>
+        <div class="setup-steps">
+          <div class="setup-step"><div class="setup-step-num">1</div><strong>NGCOA Canada</strong> — National Golf Course Owners Association. ngcoa.ca has member directories</div>
+          <div class="setup-step"><div class="setup-step-num">2</div><strong>Golf Canada</strong> — gcgolf.ca lists affiliated clubs with contact details</div>
+          <div class="setup-step"><div class="setup-step-num">3</div><strong>LinkedIn</strong> — Search "General Manager golf club" + filter by country. 85%+ have email findable via Hunter.io</div>
+          <div class="setup-step"><div class="setup-step-num">4</div><strong>Google Maps</strong> — "golf club" + city → website → "Contact Us" → GM email usually listed</div>
+        </div>
+      </div>
+      <div class="setup-card">
+        <div class="sc-title" style="margin-bottom:12px">💰 Paid Sources (faster)</div>
+        <div class="setup-steps">
+          <div class="setup-step"><div class="setup-step-num">1</div><strong>Hunter.io</strong> ($49/mo) — Find verified emails for any golf club domain in seconds</div>
+          <div class="setup-step"><div class="setup-step-num">2</div><strong>Apollo.io</strong> ($49/mo) — Filter by industry "Golf Clubs & Courses", title "General Manager". Export 1000s of contacts</div>
+          <div class="setup-step"><div class="setup-step-num">3</div><strong>Clay.earth</strong> — AI-powered lead enrichment. Import club names, it finds GMs + emails automatically</div>
+          <div class="setup-step"><div class="setup-step-num">4</div><strong>Instantly.ai</strong> — Cold email sending platform with warmup + deliverability built in</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="section">
+    <p class="section-kicker">Launch checklist</p>
+    <h2>You're ready when all of these are done</h2>
+    <div class="checklist">
+      <div class="check-item"><div class="check-box"></div>Stripe account created · Payment Links set up for Monthly and Annual</div>
+      <div class="check-item"><div class="check-box"></div>portal.html updated with real Stripe Payment Links</div>
+      <div class="check-item"><div class="check-box"></div>Zapier: Form submission → Twilio SMS to Shepherd</div>
+      <div class="check-item"><div class="check-box"></div>Zapier: Form submission → Calendar link email to client</div>
+      <div class="check-item"><div class="check-box"></div>Zapier: Stripe payment → Welcome email to client with portal link</div>
+      <div class="check-item"><div class="check-box"></div>Zapier: Stripe payment → SMS confirmation to Shepherd</div>
+      <div class="check-item"><div class="check-box"></div>Zapier: Stripe payment → Remove client from cold email sequence</div>
+      <div class="check-item"><div class="check-box"></div>Calendly: Discovery call event created with availability set</div>
+      <div class="check-item"><div class="check-box"></div>Mailchimp: 6-email automation sequence created with all emails loaded</div>
+      <div class="check-item"><div class="check-box"></div>First 50 golf club GM contacts imported and verified</div>
+      <div class="check-item"><div class="check-box"></div>Test run: Submit form → Confirm SMS received → Confirm calendar email sent</div>
+      <div class="check-item"><div class="check-box"></div>Test run: Make $1 test Stripe payment → Confirm portal email sent → Confirm Shepherd SMS received</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
