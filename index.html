@@ -1299,7 +1299,7 @@ nav.scrolled {
         Your suppliers<br>are watching.<br><em>So are we.</em>
       </h1>
       <div class="hero-divider"></div>
-      <p class="hero-sub">ShepherdSignals monitors every invoice you receive, catches price increases within 24 hours, and finds verified cheaper alternatives — delivered straight to your inbox. No dashboard. No login. Just results.</p>
+      <p class="hero-sub">ShepherdSignals monitors every invoice you receive, flags price increases within 24 hours, and finds verified cheaper alternatives — every alert delivered to your inbox, every invoice and vendor organized in your private client portal.</p>
       <div class="hero-ctas">
         <button class="btn-primary" onclick="openAuditModal()">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -1413,7 +1413,7 @@ nav.scrolled {
     <div class="section-header reveal">
       <p class="section-kicker">How it works</p>
       <h2 class="section-h2">Set it up in 15 minutes.<br>Let it run forever.</h2>
-      <p class="section-sub">Three steps. No new software to learn. No workflow changes. No IT involvement.</p>
+      <p class="section-sub">Three steps. No workflow changes. No IT involvement. Your invoices, alerts, and vendor options — all in one place.</p>
     </div>
     <div class="steps-grid">
       <div class="step-card reveal">
@@ -1436,8 +1436,8 @@ nav.scrolled {
       </div>
       <div class="step-card reveal reveal-delay-2">
         <div class="step-num-badge">3</div>
-        <div class="step-title">Alerts arrive in your inbox</div>
-        <p class="step-body">Price increase detected? An alert lands within 24 hours — with the exact item, old and new price, annual dollar impact, and the cheapest verified alternative supplier.</p>
+        <div class="step-title">Alerts in your inbox. Everything in your portal.</div>
+        <p class="step-body">Price increase detected? An alert hits your inbox within 24 hours — exact item, old and new price, annual dollar impact, and the cheapest verified alternative. Every alert, invoice, and vendor contact is also logged in your private client portal for full history and tracking.</p>
         <span class="step-tag">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="#B8791A" stroke-width="1.25"/><path d="M4 6l1.5 1.5L8 4" stroke="#B8791A" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
           With verified alternatives
@@ -1466,8 +1466,8 @@ nav.scrolled {
   <div class="alert-inner">
     <div class="alert-left reveal">
       <p class="section-kicker">What you receive</p>
-      <h2 class="alert-h2">A real alert. Everything you need to act, nothing you don't.</h2>
-      <p class="alert-sub">Within 24 hours of an invoice arriving, you get exactly this — the item, the increase, the annual cost, and a verified alternative with contact details.</p>
+      <h2 class="alert-h2">Alerts in your inbox. Everything organized in your portal.</h2>
+      <p class="alert-sub">Within 24 hours of an invoice arriving, an alert hits your inbox with the item, the increase, the annual cost, and a verified alternative. Every alert is also saved to your client portal — full history, all vendors, total savings tracked over time.</p>
       <div class="alert-feature-list">
         <div class="alert-feature">
           <div class="af-icon">
@@ -1672,7 +1672,11 @@ nav.scrolled {
           </div>
           <div class="plan-feature">
             <div class="pf-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            Free onboarding audit included
+            Private client portal — invoices, alerts, vendors
+          </div>
+          <div class="plan-feature">
+            <div class="pf-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Onboarding audit included
           </div>
         </div>
         <button class="plan-cta-ghost" onclick="openAuditModal()">Book an audit</button>
@@ -1705,7 +1709,11 @@ nav.scrolled {
           </div>
           <div class="plan-feature">
             <div class="pf-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            Free onboarding audit included
+            Private client portal — invoices, alerts, vendors
+          </div>
+          <div class="plan-feature">
+            <div class="pf-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Onboarding audit included
           </div>
         </div>
         <button class="plan-cta-primary" onclick="openAuditModal()">
@@ -2062,25 +2070,4 @@ function submitAudit(e) {
   e.preventDefault();
   const name  = document.getElementById('audit-name').value;
   const club  = document.getElementById('audit-club').value;
-  const email = document.getElementById('audit-email').value;
-  const phone = document.getElementById('audit-phone').value;
-  const note  = document.getElementById('audit-note').value;
-
-  const subject = encodeURIComponent('Audit Request — ' + club);
-  const body    = encodeURIComponent(
-    'Name: ' + name + '\nClub: ' + club + '\nEmail: ' + email +
-    (phone ? '\nPhone: ' + phone : '') +
-    (note  ? '\n\nNotes:\n' + note : '')
-  );
-  window.location.href = 'mailto:shepherdsargent@shepherdsignals.com?subject=' + subject + '&body=' + body;
-
-  setTimeout(() => closeModal('auditModal'), 400);
-}
-
-
-/* ── SMOOTH NAV SCROLL ────────────────────────────────── */
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', e => {
-    const target = document.querySelector(link.getAttribute('href'));
-    if (target) {
-      
+  const email = documen
