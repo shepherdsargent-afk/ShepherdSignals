@@ -1985,9 +1985,22 @@ const revealObs = new IntersectionObserver((entries) => {
       revealObs.unobserve(e.target);
     }
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.08, rootMargin: '0px 0px 0px 0px' });
 
-document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+// Immediately reveal anything already in viewport; observe the rest
+document.querySelectorAll('.reveal').forEach(el => {
+  const rect = el.getBoundingClientRect();
+  if (rect.top < window.innerHeight && rect.bottom > 0) {
+    el.classList.add('visible');
+  } else {
+    revealObs.observe(el);
+  }
+});
+
+// Nuclear fallback — after 2s, force anything still hidden to become visible
+setTimeout(() => {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+}, 2000);
 
 
 /* ── COUNTER ANIMATION ────────────────────────────────── */
@@ -2070,4 +2083,33 @@ function submitAudit(e) {
   e.preventDefault();
   const name  = document.getElementById('audit-name').value;
   const club  = document.getElementById('audit-club').value;
-  const email = documen
+  const email = document.getElementById('audit-email').value;
+  const phone = document.getElementById('audit-phone').value;
+  const note  = document.getElementById('audit-note').value;
+
+  const subject = encodeURIComponent('Audit Request — ' + club);
+  const body    = encodeURIComponent(
+    'Name: ' + name + '\nClub: ' + club + '\nEmail: ' + email +
+    (phone ? '\nPhone: ' + phone : '') +
+    (note  ? '\n\nNotes:\n' + note : '')
+  );
+  window.location.href = 'mailto:shepherdsargent@shepherdsignals.com?subject=' + subject + '&body=' + body;
+
+  setTimeout(() => closeModal('auditModal'), 400);
+}
+
+
+/* ── SMOOTH NAV SCROLL ────────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
