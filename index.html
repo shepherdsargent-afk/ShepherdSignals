@@ -3,6 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ShepherdSignals monitors every invoice your golf club receives, flags price increases in your weekly digest, and finds verified cheaper alternatives. Procurement intelligence at 1% the cost of enterprise software.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://shepherdsignals.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shepherdsignals.com/">
+<meta property="og:title" content="ShepherdSignals - Procurement Intelligence for Golf Clubs">
+<meta property="og:description" content="Monitor every invoice. Catch every price increase. Recover every dollar. Procurement intelligence for golf clubs at 1% the cost of enterprise software.">
+<meta property="og:image" content="https://shepherdsignals.com/images/golf-course-2.png">
+<meta property="og:site_name" content="ShepherdSignals">
+<meta property="og:locale" content="en_CA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ShepherdSignals - Procurement Intelligence for Golf Clubs">
+<meta name="twitter:description" content="Monitor every invoice. Catch every price increase. Recover every dollar.">
+<meta name="twitter:image" content="https://shepherdsignals.com/images/golf-course-2.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"ShepherdSignals","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Procurement intelligence for golf clubs. Monitors invoices, detects price spikes, delivers verified alternatives weekly.","url":"https://shepherdsignals.com","offers":[{"@type":"Offer","name":"Monthly","price":"649","priceCurrency":"CAD"},{"@type":"Offer","name":"Annual","price":"6588","priceCurrency":"CAD"}],"provider":{"@type":"Organization","name":"ShepherdSignals","url":"https://shepherdsignals.com","email":"hello@shepherdsignals.com"}}</script>
 <title>ShepherdSignals — Procurement Intelligence for Golf Clubs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1250,7 +1265,258 @@ nav.scrolled {
 }
 
 </style>
-</head>
+
+<style>
+/* ================================================
+   HAMBURGER + MOBILE NAV
+================================================ */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px; height: 36px;
+  border: none; background: transparent; cursor: pointer;
+  padding: 4px; border-radius: 8px;
+  transition: background 0.22s ease;
+  flex-shrink: 0;
+}
+.nav-hamburger:hover { background: var(--gray-50); }
+.nav-hamburger span {
+  display: block;
+  width: 20px; height: 1.5px;
+  background: var(--gray-700); border-radius: 2px;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobile-nav {
+  display: none;
+  position: fixed; top: 68px; left: 0; right: 0; z-index: 99;
+  background: rgba(250,250,247,0.98);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--gray-100);
+  padding: 8px 24px 24px;
+  flex-direction: column; gap: 0;
+  box-shadow: 0 12px 40px rgba(6,43,34,0.10);
+}
+.mobile-nav.open { display: flex; animation: mobileNavIn 0.22s cubic-bezier(0.4,0,0.2,1) both; }
+@keyframes mobileNavIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mobile-nav-link {
+  display: block;
+  padding: 17px 4px;
+  font-size: 17px; font-weight: 400;
+  color: var(--gray-700);
+  border-bottom: 1px solid var(--gray-100);
+  text-decoration: none; cursor: pointer;
+  transition: color 0.22s ease, padding-left 0.22s ease;
+}
+.mobile-nav-link:hover { color: var(--green-700); padding-left: 8px; }
+.mobile-nav-link:last-of-type { border-bottom: none; }
+.mobile-nav-cta {
+  margin-top: 18px; width: 100%; height: 50px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 500; color: var(--white);
+  background: var(--green-800); border: none;
+  border-radius: var(--radius-md); cursor: pointer;
+  transition: background 0.22s ease, transform 0.22s ease;
+}
+.mobile-nav-cta:hover { background: var(--green-700); transform: translateY(-1px); }
+
+/* ================================================
+   TABLET â€” max 1024px
+================================================ */
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+  .nav-actions .btn-ghost-nav { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .hero-inner { width: 64%; padding: 108px 40px 80px 60px; }
+  .hero-bg-pattern { width: 42%; }
+
+  .alert-inner { gap: 48px; }
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .proof-item { padding: 36px 28px; }
+}
+
+/* ================================================
+   MOBILE â€” max 768px
+================================================ */
+@media (max-width: 768px) {
+  section { padding: 64px 0; }
+
+  /* â”€â”€ Nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .nav-inner { padding: 0 20px; height: 60px; }
+  .nav-links { display: none; }
+  .nav-actions .btn-ghost-nav,
+  .nav-actions .btn-primary-nav { display: none; }
+  .nav-hamburger { display: flex; }
+  .mobile-nav { top: 60px; }
+
+  /* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .hero { min-height: 100svh; background: var(--white); }
+  .hero-bg-pattern { display: none; }
+  .hero-inner {
+    width: 100%;
+    padding: 96px 24px 64px;
+    min-height: 100svh;
+    justify-content: center;
+  }
+  .hero-left { max-width: 100%; }
+  .hero-h1 { font-size: clamp(34px, 10vw, 50px); }
+  .hero-sub { font-size: 16px; max-width: 100%; line-height: 1.65; }
+  .hero-divider { margin: 20px 0; }
+  .hero-ctas { flex-direction: column; align-items: stretch; gap: 10px; }
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-ghost { width: 100%; justify-content: center; height: 50px; font-size: 15px; }
+  .hero-tagline-line { display: none; }
+
+  /* â”€â”€ Proof bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .proof-bar-inner { grid-template-columns: repeat(2, 1fr); }
+  .proof-item {
+    padding: 28px 16px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .proof-item:nth-child(odd)  { border-right: 1px solid rgba(255,255,255,0.07); }
+  .proof-item:nth-child(3),
+  .proof-item:nth-child(4)    { border-bottom: none; }
+  .proof-num { font-size: 36px; }
+
+  /* â”€â”€ Problem section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .problem-inner { padding: 0 24px; }
+  .problem-header { margin-bottom: 40px; max-width: 100%; text-align: left; }
+  .problem-body-row { grid-template-columns: 1fr; gap: 40px; }
+  .invoice-stack { display: none; }
+  .problem-quote { font-size: 16px; }
+
+  /* â”€â”€ How it works â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .how-inner { padding: 0 24px; }
+  .steps-grid { grid-template-columns: 1fr; gap: 14px; }
+  .section-header { margin-bottom: 40px; text-align: left; }
+  .section-sub { text-align: left; margin: 0; }
+
+  /* â”€â”€ Integrations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  #integrations .how-inner > div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    max-width: 100% !important;
+    margin-bottom: 28px !important;
+  }
+  #integrations [style*="text-align:center"] {
+    padding: 24px 20px !important;
+  }
+  #integrations [style*="text-align:center"] p:last-of-type {
+    max-width: 100% !important;
+  }
+
+  /* â”€â”€ Alert section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .alert-section { margin-top: 0; padding: 64px 0; }
+  .alert-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 0 24px;
+  }
+  .alert-h2 { font-size: clamp(26px, 7vw, 36px); }
+  .alert-card-wrap { animation: none; }
+  .alert-badge-float { display: none; }
+  .em-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .em-right { text-align: left; }
+  .em-chrome { padding: 10px 12px; }
+  .em-url-bar { display: none; }
+  .em-header { padding: 16px 18px; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .em-body { padding: 16px; }
+  .em-footer { padding: 12px 16px; }
+
+  /* â”€â”€ Ops photo break â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .ops-photo-break { height: 240px; }
+  .ops-photo-quote { font-size: clamp(16px, 4.5vw, 22px); }
+
+  /* â”€â”€ Features â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .features-inner { padding: 0 24px; }
+  .features-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 40px; }
+  .feature-card { padding: 22px 20px; }
+  .fc-icon { margin-bottom: 14px; }
+
+  /* â”€â”€ Pricing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .pricing-inner { padding: 0 24px; }
+  .pricing-grid { grid-template-columns: 1fr; gap: 16px; margin-top: 40px; }
+  .plan-card { padding: 28px 24px; }
+  .plan-card-featured { padding-top: 52px; }
+  .plan-price-num { font-size: 44px; }
+  .pricing-guarantee { flex-direction: column; gap: 12px; }
+
+  /* â”€â”€ Mission strip â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .mission-inner { padding: 0 24px; flex-direction: column; gap: 16px; text-align: center; }
+
+  /* â”€â”€ Footer CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .footer-cta-section { padding: 80px 0; }
+  .footer-cta-inner { padding: 0 24px; }
+  .footer-h2 { font-size: clamp(26px, 7vw, 40px); }
+  .footer-sub { font-size: 15px; }
+  .footer-ctas { flex-direction: column; align-items: stretch; gap: 10px; }
+  .footer-ctas .btn-primary-light { width: 100%; justify-content: center; }
+  .footer-email-link { display: block; text-align: center; margin-top: 4px; }
+
+  /* â”€â”€ Footer bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .footer-bar-inner { padding: 0 24px; flex-direction: column; gap: 16px; text-align: center; }
+  .footer-bar-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+
+  /* â”€â”€ Modals â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .modal-box { padding: 28px 20px; margin: 0; max-height: 100vh; border-radius: var(--radius-lg); }
+  .modal-h3 { font-size: 22px; }
+  .modal-overlay { padding: 12px; align-items: flex-end; }
+  .modal-box { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+
+  /* â”€â”€ About (supplement existing breakpoints) â”€â”€â”€ */
+  .about-inner { padding: 0 24px !important; }
+}
+
+/* ================================================
+   SMALL MOBILE â€” max 480px
+================================================ */
+@media (max-width: 480px) {
+  section { padding: 56px 0; }
+  .nav-inner { padding: 0 16px; }
+  .mobile-nav { padding: 8px 16px 20px; }
+
+  .hero-inner { padding: 88px 16px 56px; }
+  .hero-h1 { font-size: clamp(30px, 11vw, 42px); }
+  .hero-sub { font-size: 15px; }
+
+  .proof-num { font-size: 30px; }
+  .proof-item { padding: 22px 12px; }
+  .proof-label { font-size: 12px; }
+
+  .section-h2 { font-size: clamp(24px, 8vw, 34px); }
+  .section-sub { font-size: 15px; }
+
+  .problem-inner,
+  .how-inner,
+  .features-inner,
+  .pricing-inner,
+  .mission-inner,
+  .footer-cta-inner { padding-left: 16px !important; padding-right: 16px !important; }
+
+  .alert-inner { padding: 0 16px; }
+  .about-inner { padding: 0 16px !important; }
+  .footer-bar-inner { padding: 0 16px; }
+
+  .step-card { padding: 24px 18px; }
+  .plan-card { padding: 24px 18px; }
+  .plan-price-num { font-size: 40px; }
+
+  .footer-h2 { font-size: clamp(24px, 8vw, 34px); }
+  .modal-overlay { padding: 0; }
+  .modal-box { border-radius: var(--radius-xl) var(--radius-xl) 0 0; }
+}
+</style></head>
 <body>
 
 <!-- ═══════════════════════════════════════
@@ -1273,7 +1539,7 @@ nav.scrolled {
       <a class="nav-link" href="#pricing">Pricing</a>
       <a class="nav-link" href="#about">About</a>
     </div>
-    <div class="nav-actions">
+    <div class="nav-actions"><button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
       <button class="btn-ghost-nav" onclick="window.open('sample-audit.html','_blank')">Sample audit</button>
       <button class="btn-primary-nav" onclick="openAuditModal()">
         Book an audit
@@ -1282,6 +1548,14 @@ nav.scrolled {
     </div>
   </div>
 </nav>
+<div class="mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobile menu">
+  <a class="mobile-nav-link" href="#how" onclick="closeMobileNav()">How it works</a>
+  <a class="mobile-nav-link" href="#integrations" onclick="closeMobileNav()">Integrations</a>
+  <a class="mobile-nav-link" href="#features" onclick="closeMobileNav()">Features</a>
+  <a class="mobile-nav-link" href="#pricing" onclick="closeMobileNav()">Pricing</a>
+  <a class="mobile-nav-link" href="#about" onclick="closeMobileNav()">About</a>
+  <button class="mobile-nav-cta" onclick="closeMobileNav(); openAuditModal();">Book a free audit</button>
+</div>
 
 
 <!-- ═══════════════════════════════════════
@@ -1300,7 +1574,7 @@ nav.scrolled {
         Your suppliers<br>are watching.<br><em>So are we.</em>
       </h1>
       <div class="hero-divider"></div>
-      <p class="hero-sub">ShepherdSignals monitors every invoice you receive, flags price increases within 24 hours, and finds verified cheaper alternatives — every alert delivered to your inbox, every invoice and vendor organized in your private client portal.</p>
+      <p class="hero-sub">ShepherdSignals monitors every invoice you receive, flags price increases in your weekly digest, and finds verified cheaper alternatives — every alert delivered to your inbox, every invoice and vendor organized in your private client portal.</p>
       <div class="hero-ctas">
         <button class="btn-primary" onclick="openAuditModal()">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -2190,5 +2464,44 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 });
 </script>
 
-</body>
+
+<script>
+(function() {
+  function toggleMobileNav() {
+    var btn = document.querySelector(".nav-hamburger");
+    var menu = document.getElementById("mobile-nav");
+    var isOpen = menu.classList.toggle("open");
+    btn.classList.toggle("open");
+    btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  }
+  function closeMobileNav() {
+    var btn = document.querySelector(".nav-hamburger");
+    var menu = document.getElementById("mobile-nav");
+    if (!menu) return;
+    menu.classList.remove("open");
+    btn.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+  window.toggleMobileNav = toggleMobileNav;
+  window.closeMobileNav  = closeMobileNav;
+
+  window.addEventListener("resize", function() {
+    if (window.innerWidth > 768) { closeMobileNav(); }
+  });
+  document.addEventListener("click", function(e) {
+    var menu = document.getElementById("mobile-nav");
+    var btn  = document.querySelector(".nav-hamburger");
+    if (menu && menu.classList.contains("open") && btn) {
+      if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        closeMobileNav();
+      }
+    }
+  });
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") { closeMobileNav(); }
+  });
+})();
+</script></body>
 </html>
