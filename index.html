@@ -2007,6 +2007,155 @@ nav.scrolled {
     animation-delay: 0.5s !important;
   }
 }
+</style>
+<style>
+/* ================================================
+   HERO MOBILE â€” DEFINITIVE
+   Overrides all previous injected hero CSS.
+================================================ */
+@media (max-width: 768px) {
+
+  /* Hero: relative container */
+  .hero {
+    display: block !important;
+    position: relative !important;
+    min-height: auto !important;
+    align-items: unset !important;
+  }
+
+  /* Photo: absolutely covers top 62vw, behind everything */
+  .hero-bg-pattern {
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 62vw !important;
+    min-height: 250px !important;
+    max-height: 360px !important;
+    clip-path: none !important;
+    background-position: center 20% !important;
+    background-size: cover !important;
+    z-index: 1;
+  }
+
+  /* Uniform dark overlay for headline readability */
+  .hero-bg-pattern::after {
+    background: rgba(6,43,34,0.45) !important;
+  }
+
+  /* hero-inner: normal flow, starts below the photo */
+  .hero-inner {
+    position: relative !important;
+    width: 100% !important;
+    padding-top: calc(62vw + 20px) !important;
+    padding-bottom: 60px !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    margin: 0 !important;
+    background: transparent !important;
+    z-index: 2;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: auto !important;
+  }
+
+  /* Headline: absolutely positioned at vertical center of photo */
+  .hero-h1 {
+    position: absolute !important;
+    top: 31vw !important;
+    left: 24px !important;
+    right: 24px !important;
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
+    color: #ffffff !important;
+    text-align: left !important;
+    font-size: clamp(24px, 7.5vw, 36px) !important;
+    text-shadow: 0 2px 16px rgba(6,43,34,0.65) !important;
+    z-index: 3;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+  }
+
+  /* "So are we." gold, simple block â€” NO line */
+  .hero-h1 em {
+    display: block !important;
+    color: #D4942A !important;
+    font-style: normal !important;
+    margin-top: 6px !important;
+    padding-top: 0 !important;
+  }
+
+  /* Kill the green line completely */
+  .hero-h1 em::before {
+    content: none !important;
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  /* Kill the hero-divider element (old line under photo) */
+  .hero-divider { display: none !important; }
+
+  /* Kill unused elements */
+  .hero-eyebrow-dot {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: #157A60 !important;
+    flex-shrink: 0 !important;
+    animation: pulse-dot 2s ease infinite !important;
+  }
+  .hero-tagline-line { display: none !important; }
+
+  /* Sub-heading: "Procurement intelligence Â· Golf & Hospitality" below photo */
+  .hero-eyebrow {
+    display: flex !important;
+    order: 1 !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #6B6B65 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 12px !important;
+    margin-top: 0 !important;
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Body copy below eyebrow */
+  .hero-sub {
+    order: 2 !important;
+    color: #3A3A38 !important;
+    font-size: 15px !important;
+    max-width: 100% !important;
+    line-height: 1.65 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    text-align: left !important;
+  }
+
+  /* CTA buttons below body copy */
+  .hero-ctas {
+    order: 3 !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    margin-top: 18px !important;
+    animation: none !important;
+  }
+
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-ghost {
+    width: 100% !important;
+    justify-content: center !important;
+    height: 50px !important;
+  }
+}
 </style></head>
 <body>
 
