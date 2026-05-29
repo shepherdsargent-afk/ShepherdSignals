@@ -1550,6 +1550,99 @@ nav.scrolled {
 .about-stat { text-align: center !important; }
 .as-label { max-width: 120px !important; text-align: center !important; }
 .about-inner { align-items: center !important; }
+</style>
+<style>
+/* ================================================
+   HERO â€” show image on mobile, headline overlaid
+================================================ */
+@media (max-width: 768px) {
+  .hero { flex-direction: column !important; min-height: auto !important; }
+
+  /* Show the background image full width */
+  .hero-bg-pattern {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 58vw !important;
+    min-height: 240px !important;
+    max-height: 340px !important;
+    clip-path: none !important;
+    top: auto !important; right: auto !important;
+    bottom: auto !important; left: auto !important;
+    background-position: center 25% !important;
+    background-size: cover !important;
+  }
+
+  /* Darken bottom of photo so white headline is readable */
+  .hero-bg-pattern::after {
+    background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(6,43,34,0.75) 100%) !important;
+  }
+
+  /* Pull hero-inner up 70px so headline overlaps photo */
+  .hero-inner {
+    position: relative !important;
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 0 24px 60px !important;
+    margin-top: -70px !important;
+    z-index: 2;
+    background: linear-gradient(to bottom, transparent 0%, #FAFAF7 28%) !important;
+  }
+
+  /* White headline sits on the darkened photo */
+  .hero-h1 {
+    color: #ffffff !important;
+    font-size: clamp(28px, 9vw, 42px) !important;
+    text-shadow: 0 2px 16px rgba(6,43,34,0.6) !important;
+    margin-bottom: 0 !important;
+  }
+
+  .hero-h1 em { color: rgba(255,255,255,0.7) !important; }
+
+  /* Photo creates the divide â€” no line needed */
+  .hero-divider { display: none !important; }
+
+  /* Eyebrow and tagline not needed */
+  .hero-eyebrow { display: none !important; }
+  .hero-tagline-line { display: none !important; }
+
+  /* Body copy below the photo fold */
+  .hero-sub {
+    color: #3A3A38 !important;
+    font-size: 15px !important;
+    max-width: 100% !important;
+    padding-top: 18px !important;
+  }
+}
+
+/* ================================================
+   PROBLEM SECTION â€” show the GM photo on mobile
+   Appears below the body copy, above the stats
+================================================ */
+@media (max-width: 768px) {
+  .invoice-stack {
+    display: block !important;
+    height: 220px !important;
+    margin: 24px 0 4px !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+  }
+  .invoice-card { display: none !important; }
+  .gm-photo-wrap { height: 220px !important; }
+}
+
+/* ================================================
+   MARKET INTELLIGENCE â€” remove white icon box
+================================================ */
+/* Hide any white-background child div inside the green-50 strip */
+#integrations div[style*="background:var(--green-50)"] > div[style*="background:var(--white)"],
+#integrations div[style*="background:var(--green-50)"] > div[style*="background: var(--white)"],
+#integrations [style*="border-radius:12px"][style*="background:var(--white)"],
+#integrations [style*="border-radius: 12px"][style*="background: var(--white)"] {
+  display: none !important;
+}
 </style></head>
 <body>
 
