@@ -1643,6 +1643,120 @@ nav.scrolled {
 #integrations [style*="border-radius: 12px"][style*="background: var(--white)"] {
   display: none !important;
 }
+</style>
+<style>
+/* ================================================
+   HERO V2 â€” headline absolutely overlaid on photo
+================================================ */
+@media (max-width: 768px) {
+
+  /* Hero section: block, relative for absolute child positioning */
+  .hero {
+    display: block !important;
+    position: relative !important;
+    min-height: auto !important;
+    flex-direction: unset !important;
+    align-items: unset !important;
+  }
+
+  /* Photo: full width, normal flow, at the top */
+  .hero-bg-pattern {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 62vw !important;
+    min-height: 240px !important;
+    max-height: 360px !important;
+    clip-path: none !important;
+    top: auto !important; right: auto !important;
+    bottom: auto !important; left: auto !important;
+    background-position: center 22% !important;
+    background-size: cover !important;
+    z-index: 1;
+  }
+
+  /* Darken bottom of photo strongly for white headline */
+  .hero-bg-pattern::after {
+    background: linear-gradient(to bottom,
+      transparent 20%,
+      rgba(6,43,34,0.90) 100%) !important;
+  }
+
+  /* Headline: absolutely positioned at bottom of the photo */
+  .hero-h1 {
+    position: absolute !important;
+    top: calc(62vw - 115px) !important;
+    left: 24px !important;
+    right: 24px !important;
+    bottom: auto !important;
+    color: #ffffff !important;
+    font-size: clamp(24px, 7.5vw, 36px) !important;
+    text-shadow: 0 2px 14px rgba(6,43,34,0.7) !important;
+    z-index: 3;
+    margin: 0 !important;
+    line-height: 1.18 !important;
+  }
+
+  /* "So are we." â€” gold on mobile, matching the brand colour */
+  .hero-h1 em { color: #D4942A !important; }
+
+  /* Hero-inner: static flow below the photo, contains sub + CTAs */
+  .hero-inner {
+    position: static !important;
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 20px 24px 64px !important;
+    margin: 0 !important;
+    background: transparent !important;
+    z-index: auto;
+  }
+
+  /* Hide elements that are now handled on the photo */
+  .hero-eyebrow    { display: none !important; }
+  .hero-divider    { display: none !important; }
+  .hero-tagline-line { display: none !important; }
+
+  /* Sub-copy: below photo, normal dark text */
+  .hero-sub {
+    color: #3A3A38 !important;
+    font-size: 15px !important;
+    max-width: 100% !important;
+    line-height: 1.65 !important;
+    padding-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* CTA buttons: stacked full-width */
+  .hero-ctas {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    margin-top: 18px !important;
+  }
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-ghost {
+    width: 100% !important;
+    justify-content: center !important;
+    height: 50px !important;
+  }
+}
+
+/* ================================================
+   PROBLEM SECTION â€” mobile photo placement
+================================================ */
+
+/* Desktop: hide the duplicated mobile-only photo */
+.invoice-stack-mobile-only { display: none; }
+
+/* Mobile: hide the original invoice-stack, show the mobile-only version */
+@media (max-width: 768px) {
+  .invoice-stack { display: none !important; }
+
+  .invoice-stack-mobile-only {
+    display: block !important;
+    margin: 20px 0 24px !important;
+  }
+}
 </style></head>
 <body>
 
@@ -1762,6 +1876,13 @@ nav.scrolled {
 
       <div class="problem-left reveal reveal-delay-1">
         <p class="problem-quote">At our first client, we found 78 separate price increases in six months. None had triggered an internal review. None.</p>
+
+      <!-- Mobile-only photo: shows above the stats on mobile -->
+      <div class="invoice-stack-mobile-only">
+        <div class="gm-photo-wrap" style="height:220px;border-radius:16px;overflow:hidden;margin-bottom:0;">
+          <img src="images/gm-invoice-desk.png" alt="Golf club operations manager reviewing invoices" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+        </div>
+      </div>
         <div class="problem-stat-row">
           <div class="problem-stat">
             <span class="ps-num">78</span>
