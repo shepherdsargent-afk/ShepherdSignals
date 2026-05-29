@@ -2176,6 +2176,30 @@ nav.scrolled {
     margin-top: 16px !important;
   }
 }
+</style>
+<style>
+/* Hero headline slide-in animation
+   Must keep translateY(-50%) in BOTH from and to so the
+   vertical centering is maintained throughout the motion */
+@keyframes heroSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-h1 {
+    animation: heroSlideIn 0.75s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+    animation-delay: 0.25s !important;
+    /* transform is handled by the animation â€” do not set separately */
+    transform: none !important;
+  }
+}
 </style></head>
 <body>
 
