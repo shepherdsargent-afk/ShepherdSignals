@@ -1757,6 +1757,160 @@ nav.scrolled {
     margin: 20px 0 24px !important;
   }
 }
+</style>
+<style>
+/* ================================================
+   MOBILE HERO â€” FINAL VERSION
+   - Photo full width at top
+   - Headline CENTERED vertically within photo
+   - Divider line with drawLine animation below photo
+   - "Procurement intelligence" sub-heading below divider
+   - Body copy and CTAs below that
+================================================ */
+@media (max-width: 768px) {
+
+  /* â”€â”€ Hero container â”€â”€ */
+  .hero {
+    display: block !important;
+    position: relative !important;
+    min-height: auto !important;
+    flex-direction: unset !important;
+    align-items: unset !important;
+  }
+
+  /* â”€â”€ Full-width photo â”€â”€ */
+  .hero-bg-pattern {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 64vw !important;
+    min-height: 250px !important;
+    max-height: 380px !important;
+    clip-path: none !important;
+    top: auto !important; right: auto !important;
+    bottom: auto !important; left: auto !important;
+    background-position: center 20% !important;
+    background-size: cover !important;
+    z-index: 1;
+  }
+
+  /* Subtle vignette so headline is always readable */
+  .hero-bg-pattern::after {
+    background: linear-gradient(to bottom,
+      rgba(6,43,34,0.25) 0%,
+      rgba(6,43,34,0.45) 50%,
+      rgba(6,43,34,0.72) 100%) !important;
+  }
+
+  /* â”€â”€ Headline: CENTERED vertically and horizontally on photo â”€â”€ */
+  .hero-h1 {
+    position: absolute !important;
+    top: 50% !important;
+    left: 24px !important;
+    right: 24px !important;
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
+    color: #ffffff !important;
+    font-size: clamp(26px, 8.5vw, 40px) !important;
+    text-shadow: 0 2px 18px rgba(6,43,34,0.65) !important;
+    z-index: 3;
+    margin: 0 !important;
+    line-height: 1.18 !important;
+    text-align: center !important;
+  }
+
+  /* "So are we." â€” gold, matching brand colour */
+  .hero-h1 em {
+    color: #D4942A !important;
+    font-style: normal !important;
+  }
+
+  /* â”€â”€ Below-photo section: flex column, reordered â”€â”€ */
+  .hero-inner {
+    position: static !important;
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 20px 24px 60px !important;
+    margin: 0 !important;
+    background: transparent !important;
+    z-index: auto;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Flex order: divider (1) -> eyebrow subheading (2) -> body (3) -> CTAs (4) */
+
+  /* â”€â”€ Divider line with motion (order 1) â”€â”€ */
+  .hero-divider {
+    display: block !important;
+    order: 1 !important;
+    width: 48px !important;
+    height: 2px !important;
+    background: var(--green-800, #0A3D2E) !important;
+    margin: 4px auto 12px !important;
+    animation: drawLine 0.8s cubic-bezier(0.4,0,0.2,1) both !important;
+    animation-delay: 0.3s !important;
+  }
+
+  /* â”€â”€ "Procurement intelligence" sub-heading (order 2) â”€â”€ */
+  .hero-eyebrow {
+    display: flex !important;
+    order: 2 !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: var(--gray-500, #6B6B65) !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 16px !important;
+    animation: fadeIn 0.6s ease both !important;
+    animation-delay: 0.5s !important;
+    opacity: 0 !important;
+    animation-fill-mode: forwards !important;
+  }
+
+  .hero-eyebrow-dot {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: var(--green-500, #157A60) !important;
+    animation: pulse-dot 2s ease infinite !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* â”€â”€ Body copy (order 3) â”€â”€ */
+  .hero-sub {
+    order: 3 !important;
+    color: #3A3A38 !important;
+    font-size: 15px !important;
+    max-width: 100% !important;
+    line-height: 1.65 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    text-align: left !important;
+  }
+
+  /* â”€â”€ CTAs (order 4) â”€â”€ */
+  .hero-ctas {
+    order: 4 !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    margin-top: 18px !important;
+  }
+
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-ghost {
+    width: 100% !important;
+    justify-content: center !important;
+    height: 50px !important;
+  }
+
+  /* â”€â”€ Hidden on mobile â”€â”€ */
+  .hero-tagline-line { display: none !important; }
+}
 </style></head>
 <body>
 
