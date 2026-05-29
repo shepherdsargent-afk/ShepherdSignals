@@ -1921,6 +1921,49 @@ nav.scrolled {
     margin: 0 0 14px 0 !important;
   }
 }
+</style>
+<style>
+/* ================================================
+   HERO â€” FINAL POSITION FIX
+   top:50% was anchoring to full hero height (photo + content below).
+   Replaced with calc(32vw) = half the photo height, keeping h1 on photo.
+   Left-aligned.
+================================================ */
+@media (max-width: 768px) {
+  .hero-h1 {
+    position: absolute !important;
+    top: clamp(100px, 32vw, 175px) !important;
+    transform: translateY(-50%) !important;
+    left: 24px !important;
+    right: 24px !important;
+    bottom: auto !important;
+    text-align: left !important;
+    color: #ffffff !important;
+    font-size: clamp(26px, 8vw, 38px) !important;
+    text-shadow: 0 2px 16px rgba(6,43,34,0.7) !important;
+    z-index: 3;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+  }
+  .hero-h1 em {
+    display: block !important;
+    color: #D4942A !important;
+    font-style: normal !important;
+    padding-top: 16px !important;
+    margin-top: 0 !important;
+  }
+  /* Gold line between "are watching." and "So are we." â€” left-aligned */
+  .hero-h1 em::before {
+    content: "" !important;
+    display: block !important;
+    width: 100% !important;
+    height: 2px !important;
+    background: #157A60 !important;
+    margin: 0 0 14px 0 !important;
+    animation: drawLine 0.7s cubic-bezier(0.4,0,0.2,1) both !important;
+    animation-delay: 0.5s !important;
+  }
+}
 </style></head>
 <body>
 
