@@ -1241,7 +1241,8 @@ nav.scrolled {
 .abf-sub { font-size: 11.5px; color: var(--gray-500); }
 
 /* Explainer modal */
-.modal-explainer { max-width: 600px; }
+.modal-explainer { max-width: 760px; }
+.explainer-video { width: 100%; border-radius: 12px; margin-bottom: 24px; background: #000; display: block; box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
 .explainer-steps { display: flex; flex-direction: column; gap: 0; margin-bottom: 28px; }
 .ex-step {
   display: flex; gap: 20px; align-items: flex-start;
@@ -2928,6 +2929,7 @@ nav.scrolled {
     <button class="modal-close" onclick="closeModal('explainerModal')">✕</button>
     <p class="modal-kicker">How it works</p>
     <h3 class="modal-h3">Three steps. 15 minutes to set up. Runs forever.</h3>
+    <video id="explainerVideo" class="explainer-video" controls playsinline preload="metadata" src="/videos/portal-walkthrough.mp4"></video>
     <div class="explainer-steps">
       <div class="ex-step">
         <div class="ex-num">1</div>
@@ -3110,10 +3112,16 @@ function openAuditModal() {
 function openExplainerModal() {
   document.getElementById('explainerModal').classList.add('open');
   document.body.style.overflow = 'hidden';
+  var v = document.getElementById('explainerVideo');
+  if (v) { v.currentTime = 0; v.play().catch(function(){}); }
 }
 function closeModal(id) {
   document.getElementById(id).classList.remove('open');
   document.body.style.overflow = '';
+  if (id === 'explainerModal') {
+    var v = document.getElementById('explainerVideo');
+    if (v) v.pause();
+  }
 }
 
 // Close modals on Escape key
@@ -3123,6 +3131,8 @@ document.addEventListener('keydown', e => {
       m.classList.remove('open');
       document.body.style.overflow = '';
     });
+    var ev = document.getElementById('explainerVideo');
+    if (ev) ev.pause();
   }
 });
 
