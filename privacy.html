@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — ShepherdSignals</title>
+<meta name="description" content="ShepherdSignals Privacy Policy — how we collect, use, store, and protect your data, including QuickBooks Online accounting data.">
+<style>
+  :root { --bg:#0a1f18; --panel:#0d2b22; --line:#1a4a3a; --text:#e5e7eb; --muted:#9ca3af; --head:#ffffff; --accent:#34d399; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; line-height:1.7; }
+  .wrap { max-width:780px; margin:0 auto; padding:48px 20px 80px; }
+  header { display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; }
+  .brand { color:var(--head); font-size:18px; font-weight:700; letter-spacing:0.3px; text-decoration:none; }
+  .home { color:var(--muted); font-size:14px; text-decoration:none; }
+  .home:hover { color:var(--accent); }
+  h1 { color:var(--head); font-size:30px; margin:0 0 6px; }
+  .eff { color:var(--muted); font-size:14px; margin:0 0 32px; }
+  h2 { color:var(--head); font-size:19px; margin:36px 0 10px; }
+  p, li { color:var(--text); font-size:15px; }
+  a { color:var(--accent); }
+  ul { padding-left:20px; }
+  .note { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:20px 0; font-size:14px; color:var(--muted); }
+  footer { margin-top:56px; padding-top:20px; border-top:1px solid var(--line); color:#4b5563; font-size:13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="/">ShepherdSignals</a>
+    <a class="home" href="/">← Back to site</a>
+  </header>
+
+  <h1>Privacy Policy</h1>
+  <p class="eff">Effective date: June 26, 2026 · Last updated: June 26, 2026</p>
+
+  <p>ShepherdSignals ("ShepherdSignals," "we," "us," or "our") provides procurement-intelligence software that monitors supplier invoices for golf clubs and hospitality businesses, flags price increases, and surfaces savings opportunities. This Privacy Policy explains what information we collect, how we use it, who we share it with, and the choices you have. By using our website (shepherdsignals.com), our client portal (portal.shepherdsignals.com), or any related service (collectively, the "Service"), you agree to this Policy.</p>
+
+  <h2>1. Information we collect</h2>
+  <ul>
+    <li><strong>Account &amp; business information</strong> — name, business name, email address, role, and billing details you or your administrator provide.</li>
+    <li><strong>Invoice and procurement data</strong> — supplier (vendor) invoices you upload or that we retrieve on your behalf, including line items, product descriptions, quantities, unit prices, totals, invoice numbers, and dates.</li>
+    <li><strong>Connected accounting data</strong> — when you connect QuickBooks Online (see Section 4), the vendor bills and their attached documents we read to perform the Service.</li>
+    <li><strong>Usage and device data</strong> — log data such as IP address, browser type, and pages accessed, used to operate and secure the Service.</li>
+  </ul>
+
+  <h2>2. How we use information</h2>
+  <ul>
+    <li>To read and analyze your invoices and detect price increases against your own price history and sourced market benchmarks.</li>
+    <li>To generate alerts, weekly digests, and savings recommendations, and to deliver them to you by email and in your portal.</li>
+    <li>To provide, maintain, secure, and improve the Service, and to provide customer support.</li>
+    <li>To process billing and subscriptions, and to comply with legal obligations.</li>
+  </ul>
+  <p>We do <strong>not</strong> sell your personal information, and we do not use your invoice or accounting data for advertising.</p>
+
+  <h2>3. Service providers (subprocessors)</h2>
+  <p>We share data only with vendors that help us run the Service, under agreements that limit their use of it:</p>
+  <ul>
+    <li><strong>Supabase</strong> — database and file storage (data encrypted at rest).</li>
+    <li><strong>Vercel</strong> — application hosting.</li>
+    <li><strong>Google (Gemini API)</strong> — AI extraction of line items from invoice documents.</li>
+    <li><strong>Resend</strong> — transactional and alert email delivery.</li>
+    <li><strong>Stripe</strong> — subscription billing and payment processing.</li>
+    <li><strong>Intuit (QuickBooks Online)</strong> — only when you choose to connect it (see Section 4).</li>
+  </ul>
+
+  <h2>4. QuickBooks Online / Intuit data</h2>
+  <p>If you connect QuickBooks Online, you authorize ShepherdSignals to access your QuickBooks data using Intuit's OAuth 2.0 authorization. The connection is limited to Intuit's <strong>accounting</strong> scope, and our software reads only:</p>
+  <ul>
+    <li><strong>Vendor Bills</strong> (supplier invoices), and</li>
+    <li><strong>Attachments</strong> (the invoice documents attached to those bills).</li>
+  </ul>
+  <p>We use this data solely to extract line-item pricing and detect price increases — the same function as a manually uploaded invoice. We do <strong>not</strong> request the payroll scope, and our software does <strong>not</strong> access employee records, timesheets, wages, or labour/scheduling data.</p>
+  <div class="note">
+    <strong>Token security:</strong> the access and refresh tokens that authorize the connection are stored encrypted in Supabase Vault and are used only by our backend. They are never exposed to your browser or to third parties. You can disconnect at any time from your QuickBooks "Apps" / "Connected apps" settings or by contacting us, which revokes our access. Our use and transfer of information received from Google APIs adhere to the applicable API services user-data policies.
+  </div>
+
+  <h2>5. Data retention</h2>
+  <p>We retain invoice, pricing, and account data for as long as your account is active so we can show price history and savings over time. If you close your account, we delete or de-identify your data within 90 days, except where we must retain it to meet legal, tax, or accounting obligations.</p>
+
+  <h2>6. Security</h2>
+  <p>We use industry-standard safeguards including encryption in transit (HTTPS) and at rest, access controls, and least-privilege backend access. No method of transmission or storage is 100% secure, but we work to protect your information and to notify affected users of any breach as required by law.</p>
+
+  <h2>7. Your rights and choices</h2>
+  <p>You may access, correct, export, or request deletion of your personal information, and you may disconnect any connected accounting integration at any time. To make a request, contact us at the address below. Depending on your jurisdiction (including British Columbia and Canada under PIPEDA), you may have additional rights.</p>
+
+  <h2>8. Children's privacy</h2>
+  <p>The Service is intended for businesses and is not directed to children under 16. We do not knowingly collect personal information from children.</p>
+
+  <h2>9. International users</h2>
+  <p>ShepherdSignals is operated from Kelowna, British Columbia, Canada. If you access the Service from outside Canada, you understand your information may be processed in Canada and other countries where our service providers operate.</p>
+
+  <h2>10. Changes to this Policy</h2>
+  <p>We may update this Policy from time to time. We will post the updated version here and revise the "Last updated" date. Material changes will be communicated by email or in the portal.</p>
+
+  <h2>11. Contact us</h2>
+  <p>Questions or requests: <a href="mailto:shepherdsargent@shepherdsignals.com">shepherdsargent@shepherdsignals.com</a><br>ShepherdSignals · Kelowna, British Columbia, Canada</p>
+
+  <footer>© 2026 ShepherdSignals. This Privacy Policy is provided for transparency and does not constitute legal advice.</footer>
+</div>
+</body>
+</html>
