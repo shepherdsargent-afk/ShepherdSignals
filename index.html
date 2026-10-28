@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="ShepherdSignals monitors every invoice your golf club receives, flags price increases in your weekly digest, and finds verified cheaper alternatives. Procurement intelligence at 1% the cost of enterprise software.">
+<meta name="description" content="ShepherdSignals is the organizational procurement tool for golf courses and clubs — it watches every supplier invoice across your whole operation and catches the overcharges and price creep no one else is looking at.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://shepherdsignals.com/">
 <meta property="og:type" content="website">
@@ -21,7 +21,8 @@
 <title>ShepherdSignals — Procurement Intelligence for Golf Clubs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>.plan-price-num,.ps-num,.proof-num{font-family:'JetBrains Mono',ui-monospace,monospace !important;}</style>
 <style>
 
 /* ─────────────────────────────────────────────
@@ -2218,12 +2219,6 @@ nav.scrolled {
 <nav id="main-nav">
   <div class="nav-inner">
     <div class="nav-logo">
-      <div class="nav-logo-mark">
-        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 13L7 8L10 11L14 5" stroke="#9FE1CB" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="14" cy="5" r="1.5" fill="#FAC775"/>
-        </svg>
-      </div>
       <span class="nav-logo-name">ShepherdSignals</span>
     </div>
     <div class="nav-links">
@@ -2258,22 +2253,18 @@ nav.scrolled {
     <div class="hero-left">
       <div class="hero-eyebrow">
         <div class="hero-eyebrow-dot"></div>
-        Procurement intelligence · Golf &amp; Hospitality
+        Organizational procurement tool · Golf courses &amp; clubs
       </div>
       <h1 class="hero-h1">
         Your suppliers<br>are watching.<br><em>So are we.</em>
       </h1>
       <div class="hero-divider"></div>
-      <p class="hero-sub">ShepherdSignals monitors every invoice you receive, flags price increases in your weekly digest, and finds verified cheaper alternatives — every alert delivered to your inbox, every invoice and vendor organized in your private client portal.</p>
+      <p class="hero-sub">ShepherdSignals watches every invoice across your whole operation — pro shop, F&amp;B, turf, services — and catches the padded fees and quiet price creep no one else is looking at. On your side, not your suppliers'.</p>
       <div class="hero-ctas">
         <a class="btn-primary" href="https://portal.shepherdsignals.com/pricing">
-          Start monitoring
+          Start free month
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <button class="btn-ghost" onclick="openExplainerModal()">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 6.5l3 1.5-3 1.5V6.5z" stroke="currentColor" stroke-width="1.3" fill="currentColor" stroke-linejoin="round"/></svg>
-          Watch how it works
-        </button>
       </div>
       <p class="hero-tagline-line">Every invoice watched. Every overcharge caught. Every dollar counts.</p>
     </div>
@@ -2287,23 +2278,23 @@ nav.scrolled {
 <div class="proof-bar">
   <div class="proof-bar-inner">
     <div class="proof-item reveal">
-      <span class="proof-num" data-target="78">78</span>
-      <span class="proof-label">Price increases caught at first client</span>
+      <span class="proof-num" style="font-size:22px;">Every supplier</span>
+      <span class="proof-label">and every category — watched</span>
       <div class="proof-accent"></div>
     </div>
     <div class="proof-item reveal reveal-delay-1">
-      <span class="proof-num"><span class="currency">$</span><span data-target="48420" data-format="currency">48,420</span></span>
-      <span class="proof-label">Overspend identified in six months</span>
+      <span class="proof-num" style="font-size:22px;">Fees &amp; creep</span>
+      <span class="proof-label">caught before the check clears</span>
       <div class="proof-accent"></div>
     </div>
     <div class="proof-item reveal reveal-delay-2">
-      <span class="proof-num"><span data-target="24">24</span><span style="font-size:28px">hrs</span></span>
-      <span class="proof-label">Alert delivered after price increase detected</span>
+      <span class="proof-num" style="font-size:22px;">First month free</span>
+      <span class="proof-label">commit once you see the savings</span>
       <div class="proof-accent"></div>
     </div>
     <div class="proof-item reveal reveal-delay-3">
-      <span class="proof-num"><span data-target="15">15</span><span style="font-size:28px">min</span></span>
-      <span class="proof-label">Total onboarding time. No IT required.</span>
+      <span class="proof-num" style="font-size:22px;">Simple setup</span>
+      <span class="proof-label">no IT, no new system to learn</span>
       <div class="proof-accent"></div>
     </div>
   </div>
@@ -2320,14 +2311,14 @@ nav.scrolled {
     <div class="problem-header reveal">
       <p class="section-kicker">The hidden drain</p>
       <h2 class="problem-h2">Your suppliers raise prices quietly. You approve invoices on autopilot.</h2>
-      <p class="problem-body">The average golf club and hospitality operation has 40–60 vendor relationships. Suppliers raise prices gradually, knowing that busy GMs sign off without scrutiny. By the time it shows on the P&amp;L, you've already overpaid for months.</p>
+      <p class="problem-body">A golf operation runs 40–60 vendor relationships at once. Price increases arrive gradually — small enough to slip through a busy approvals process. By the time they surface on the P&amp;L, they've been adding up for months.</p>
     </div>
 
     <!-- Two-column: left stats, right photo -->
     <div class="problem-body-row">
 
       <div class="problem-left reveal reveal-delay-1">
-        <p class="problem-quote">At our first client, we found 78 separate price increases in six months. None had triggered an internal review. None.</p>
+        <p class="problem-quote">Across one operation's invoices, we found price increase after price increase — not one had triggered an internal review.</p>
 
       <!-- Mobile-only photo: shows above the stats on mobile -->
       <div class="invoice-stack-mobile-only">
@@ -2337,16 +2328,16 @@ nav.scrolled {
       </div>
         <div class="problem-stat-row">
           <div class="problem-stat">
-            <span class="ps-num">78</span>
-            <span class="ps-text">Price increases detected in 6 months at a single golf club — all missed internally</span>
+            <span class="ps-num">40–60</span>
+            <span class="ps-text">Vendor relationships the average golf operation juggles at once</span>
           </div>
           <div class="problem-stat">
-            <span class="ps-num">$50K</span>
-            <span class="ps-text">Average annual overspend from price creep at a mid-size hospitality operation</span>
+            <span class="ps-num">2–4%</span>
+            <span class="ps-text">Of annual spend typically lost to quiet price creep and padded fees</span>
           </div>
           <div class="problem-stat">
             <span class="ps-num">0</span>
-            <span class="ps-text">Number of those 78 increases that had triggered an internal review before we found them</span>
+            <span class="ps-text">Of those increases trigger an internal review on their own — which is exactly how they pile up</span>
           </div>
         </div>
       </div>
@@ -2400,7 +2391,7 @@ nav.scrolled {
       <div class="step-card reveal reveal-delay-1">
         <div class="step-num-badge">2</div>
         <div class="step-title">We read every line item</div>
-        <p class="step-body">The moment an invoice arrives, our system extracts every line item and compares it against your historical baselines, verified price lists, and live market data.</p>
+        <p class="step-body">The moment an invoice arrives, our system extracts every line item and compares it against your own price history and public market benchmarks — flagging increases, padded fees, and anything off-contract.</p>
         <span class="step-tag">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="#B8791A" stroke-width="1.25"/><path d="M4 6l1.5 1.5L8 4" stroke="#B8791A" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
           AI-powered analysis
@@ -2409,7 +2400,7 @@ nav.scrolled {
       <div class="step-card reveal reveal-delay-2">
         <div class="step-num-badge">3</div>
         <div class="step-title">Alerts in your inbox. Everything in your portal.</div>
-        <p class="step-body">Price increase detected? It&apos;s flagged in your weekly digest — exact item, old and new price, annual dollar impact, and the cheapest verified alternative. Every alert, invoice, and vendor contact is also logged in your private client portal for full history and tracking.</p>
+        <p class="step-body">Price increase or padded fee detected? It&apos;s flagged in your weekly digest — exact item, old and new price, and the annual dollar impact. Where we can verify a genuinely cheaper source, we show it. Every alert, invoice, and vendor is logged in your private portal.</p>
         <span class="step-tag">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="#B8791A" stroke-width="1.25"/><path d="M4 6l1.5 1.5L8 4" stroke="#B8791A" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
           With verified alternatives
@@ -2442,8 +2433,8 @@ nav.scrolled {
   <div class="how-inner">
 
     <div class="section-header reveal">
-      <p class="section-kicker">Integrations — in development</p>
-      <h2 class="section-h2">Connects to the tools you already run</h2>
+      <p class="section-kicker">Integrations</p>
+      <h2 class="section-h2">Connects to QuickBooks — more on the way</h2>
       <p class="section-sub">QuickBooks and Xero connections are in development. Today, setup takes 15 minutes — just upload your invoice PDFs, no software to install. Every line item is cross-referenced against live market data.</p>
     </div>
 
@@ -2472,7 +2463,7 @@ nav.scrolled {
     <div class="alert-left reveal">
       <p class="section-kicker">What you receive</p>
       <h2 class="alert-h2">Alerts in your inbox. Everything organized in your portal.</h2>
-      <p class="alert-sub">Your first audit lands within 24 hours of onboarding — so you see it working right away. After that, a clear digest every Monday: the item, the increase, the annual cost, and a verified alternative. Every alert is also saved to your client portal — full history, all vendors, total savings tracked over time.</p>
+      <p class="alert-sub">After onboarding, a clear digest every Monday: the item, the increase, the annual cost, and — where we've verified one — a cheaper source. Every alert is also saved to your client portal, with full history and savings tracked over time.</p>
       <div class="alert-feature-list">
         <div class="alert-feature">
           <div class="af-icon">
@@ -2525,35 +2516,35 @@ nav.scrolled {
         <div class="em-scan-line"></div>
         <div class="em-row">
           <div>
-            <div class="em-item-name">Chicken Breast (10 kg case)</div>
-            <div class="em-item-vendor">Sysco Canada · Invoice #8841</div>
+            <div class="em-item-name">Turf Fertilizer 18-24-12 (50 lb)</div>
+            <div class="em-item-vendor">Greenskeeping supplier · Invoice #8841</div>
           </div>
           <div class="em-right">
-            <div class="em-increase">+18.4% · $3.20 → $3.79/kg</div>
-            <div class="em-saving">GFS verified $3.10/kg · Save $1,260/yr</div>
-            <div class="em-source">BCLDB confirmed · Updated May 2025</div>
+            <div class="em-increase">+14% · $42.00 → $47.90/bag</div>
+            <div class="em-saving">Cheaper source found · $44.10/bag</div>
+            <div class="em-source">Verified on supplier page</div>
           </div>
         </div>
         <div class="em-row">
           <div>
-            <div class="em-item-name">House Cabernet Sauvignon 750ml</div>
-            <div class="em-item-vendor">Sysco Canada · Invoice #8841</div>
+            <div class="em-item-name">Titleist Pro V1 (dozen)</div>
+            <div class="em-item-vendor">Pro-shop distributor · Invoice #8842</div>
           </div>
           <div class="em-right">
-            <div class="em-increase">+7.1% · $12.40 → $13.28</div>
-            <div class="em-saving">BCLDB wholesale $11.95 · Save $396/yr</div>
-            <div class="em-source">BCLDB verified · May price list</div>
+            <div class="em-increase">+9% · $38.00 → $41.40/dz</div>
+            <div class="em-saving">Cheaper source found · $37.50/dz</div>
+            <div class="em-source">Verified on retailer page</div>
           </div>
         </div>
         <div class="em-row">
           <div>
             <div class="em-item-name">Commercial Linen — weekly</div>
-            <div class="em-item-vendor">Alsco Kelowna · Invoice #2204</div>
+            <div class="em-item-vendor">Linen service · Invoice #2204</div>
           </div>
           <div class="em-right">
             <div class="em-increase">+11.2% · $420 → $467/week</div>
-            <div class="em-saving">Cintas on-file $398/wk · Save $3,588/yr</div>
-            <div class="em-source">Quote on file · Renewal clause: 30 days</div>
+            <div class="em-saving">Contestable increase — review contract</div>
+            <div class="em-source">Service agreement · 30-day clause</div>
           </div>
         </div>
       </div>
@@ -2603,7 +2594,7 @@ nav.scrolled {
           <svg viewBox="0 0 22 22" fill="none"><path d="M8 3h6l2 5H6L8 3zM6 8v10a1 1 0 001 1h8a1 1 0 001-1V8" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 12v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </div>
         <div class="fc-title">Alcohol &amp; Liquor</div>
-        <p class="fc-body">Benchmarked against the BCLDB monthly wholesale price list — the only verified authoritative source for BC liquor pricing.</p>
+        <p class="fc-body">Benchmarked against public wholesale price lists and your own purchase history, across every category you buy.</p>
       </div>
       <div class="feature-card reveal reveal-delay-2">
         <div class="fc-icon">
@@ -2649,6 +2640,7 @@ nav.scrolled {
     <div class="section-header reveal">
       <p class="section-kicker">Pricing</p>
       <h2 class="section-h2">Priced against what you save,<br>not what we cost.</h2>
+      <p class="section-sub">First month free. If we don't find enough savings to cover it, your money back.</p>
       <p class="section-sub">The average client recovers our annual fee in the first alert we send.</p>
     </div>
     <div class="pricing-grid">
@@ -2656,10 +2648,10 @@ nav.scrolled {
         <div class="plan-name">Monthly</div>
         <p class="plan-desc">Maximum flexibility. Cancel any time.</p>
         <div class="plan-price">
-          <span class="plan-price-num">$649</span>
+          <span class="plan-price-num">$199</span>
           <span class="plan-price-unit">/month</span>
         </div>
-        <p class="plan-billed">Billed monthly</p>
+        <p class="plan-billed">Billed monthly · first month free</p>
         <div class="plan-divider"></div>
         <div class="plan-features">
           <div class="plan-feature">
@@ -2676,7 +2668,7 @@ nav.scrolled {
           </div>
           <div class="plan-feature">
             <div class="pf-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            Verified alternative sourcing
+            Verified cheaper sources — where we find them
           </div>
           <div class="plan-feature">
             <div class="pf-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -2692,12 +2684,12 @@ nav.scrolled {
       <div class="plan-card plan-card-featured reveal reveal-delay-1">
         <div class="plan-badge">Most popular · Best value</div>
         <div class="plan-name">Annual</div>
-        <p class="plan-desc">Commit annually and save $1,200.</p>
+        <p class="plan-desc">Commit annually · first month free.</p>
         <div class="plan-price">
-          <span class="plan-price-num">$549</span>
+          <span class="plan-price-num">$149</span>
           <span class="plan-price-unit">/month</span>
         </div>
-        <p class="plan-billed" style="color: var(--green-600); font-weight: 500;">$6,588 billed annually · Save $1,200</p>
+        <p class="plan-billed" style="color: var(--green-600); font-weight: 500;">$1,788 billed annually · first month free</p>
         <div class="plan-divider"></div>
         <div class="plan-features">
           <div class="plan-feature">
@@ -2835,6 +2827,8 @@ nav.scrolled {
       <span class="footer-bar-link" onclick="document.querySelector('#about').scrollIntoView({behavior:'smooth'})">About</span>
       
       <span class="footer-bar-link" onclick="window.location.href='mailto:shepherdsargent@shepherdsignals.com'">Contact</span>
+      <span class="footer-bar-link" onclick="window.location.href='/privacy.html'">Privacy</span>
+      <span class="footer-bar-link" onclick="window.location.href='/terms.html'">Terms</span>
     </div>
     <div class="footer-bar-logo" style="opacity:0.4; font-size:12px;">© 2026 ShepherdSignals</div>
   </div>
